@@ -22,12 +22,12 @@ function App(props) {
   console.log(props)
   return (
     <div >
-      {/* <Router> */}
+      
         <Switch>
           <Route exact path="/" render={renderHomePage} />
           <Route exact path="/state-page" render={renderStatePage} />
         </Switch>
-      {/* </Router> */}
+      
     </div>
     
   );
