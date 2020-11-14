@@ -32,3 +32,5 @@ jobs:
       run: cd covid-app; npm test
     - name: Run the tests and generate coverage report
       run: cd covid-app; npm test -- --coverage
+    - name: Deploying
+      run: cd covid-app; npm run deploy
