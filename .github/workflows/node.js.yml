@@ -33,4 +33,4 @@ jobs:
     - name: Run the tests and generate coverage report
       run: cd covid-app; npm test -- --coverage
     - name: Deploying
-      run: cd covid-app; npm run deploy
+      run: cd covid-app; npm install gh-pages --save; npm run deploy
