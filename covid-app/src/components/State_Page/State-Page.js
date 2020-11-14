@@ -1,9 +1,11 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import './State-PageCss.css'
 
 function State_Page(props){
   return(
     <div id="StatePage-container">
+      <Link to='/'>Home Page</Link>
       <div className="a-api_feed_title">PUBLIC COMMENT</div>
       <div className="a-api_feed_container"></div>
       <div className="a-state_name_container">OKLAHOMA</div>
