@@ -3,7 +3,7 @@ VV starting...
 Backend command to start server:
 python -m venv venv
 source venv/bin/activate
-pip install requirements.txt
+pip install -r requirements.txt
 python manage.py runserver
 
 Frontend command to start server:
