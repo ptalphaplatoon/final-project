@@ -1,11 +1,18 @@
-VV starting...
-
+## Django API
 Backend command to start server:
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python manage.py runserver
-
+```console
+$ cd covid_api
+$ python -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ python manage.py runserver
+```
+## React App
 Frontend command to start server:
-
-Run the following test before committing changes: npm install npm run test
+```console
+$ npm install
+```
+Run the following test before committing changes: 
+```console
+$ npm run test
+```
