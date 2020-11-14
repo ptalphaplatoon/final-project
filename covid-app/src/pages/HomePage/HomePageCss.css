@@ -1,1 +1,132 @@
 
+#home-container{
+  display: grid;
+  grid-template-rows: 34;
+  grid-template-columns: 34;
+  min-width: 100%;
+  max-height: 100%;
+}
+
+/* ------------------------- */
+
+.navBar{
+  display: grid;
+  grid-template-rows: 34;
+  grid-template-columns: 6;
+  min-width: 100%;
+  max-height: 100%;
+}
+
+/* ------------------------- */
+
+/* ------------ */
+/*      sub-      */
+/* Group Change */
+/* ------------ */
+
+[class*="sub-"]{
+  background-color: lightblue;
+}
+
+.sub-nav-title{
+  grid-row-start: 2;
+  grid-row-end: 4;
+  grid-column-start: 2;
+  grid-column-end: 8;
+}
+
+/* ------------------------- */
+
+.sub-nav-home-button{
+  grid-row-start: 5;
+  grid-row-end: 6;
+  grid-column-start: 2;
+  grid-column-end: 5;
+}
+
+/* ------------------------- */
+
+.sub-nav-login-button{
+  grid-row-start: 5;
+  grid-row-end: 6;
+  grid-column-start: 28;
+  grid-column-end: 31;
+}
+
+/* ------------------------- */
+
+.sub-nav-signup-button{
+  grid-row-start: 5;
+  grid-row-end: 6;
+  grid-column-start: 31;
+  grid-column-end: 34;
+}
+
+/* ------------------------- */
+
+/* ------------ */
+/*      b-      */
+/* Group Change */
+/* ------------ */
+
+[class*="b-"]{
+  background-color: lightblue;
+}
+
+.b-label-title{
+  grid-row-start: 6;
+  grid-row-end: 7;
+  grid-column-start: 2;
+  grid-column-end: 12;
+}
+
+/* ------------------------- */
+
+.b-updated-lable{
+  grid-row-start: 6;
+  grid-row-end: 7;
+  grid-column-start: 26;
+  grid-column-end: 34;
+}
+
+/* ------------------------- */
+
+.b-info-updater{
+  grid-row-start: 9;
+  grid-row-end: 13;
+  grid-column-start: 18;
+  grid-column-end: 32;
+}
+
+/* ------------------------- */
+
+.b-tweet-label{
+  grid-row-start: 12;
+  grid-row-end: 13;
+  grid-column-start: 5;
+  grid-column-end: 11;
+}
+
+/* ------------------------- */
+
+.b-tweet-container{
+  grid-row-start: 3;
+  grid-row-end: 13;
+  grid-column-start: 14;
+  grid-column-end: 30;
+}
+
+/* ------------------------- */
+
+.b-us-map{
+  grid-row-start: 14;
+  grid-row-end: 30;
+  grid-column-start: 14;
+  grid-column-end: 34;
+}
+
+/* ------------------------- */
+
+
+/* ------------------------- */
+
