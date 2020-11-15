@@ -1,0 +1,60 @@
+
+
+
+/* ------------------------- */
+
+#nav-container{
+  display: grid;
+  grid-template-rows: repeat(5,1fr);
+  grid-template-columns: repeat(34,1fr);
+
+  background-color: lightgrey;
+}
+
+/* ------------------------- */
+
+/* ------------ */
+/*      sub-    */
+/* Group Change */
+/* ------------ */
+
+[class*="sub-"]{
+  background-color: green;
+  border: 1px solid black;
+} 
+
+.sub-nav-title{
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 8;
+}
+
+/* ------------------------- */
+
+.sub-nav-home-button{
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-column-start: 2;
+  grid-column-end: 5;
+}
+
+/* ------------------------- */
+
+.sub-nav-login-button{
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-column-start: 28;
+  grid-column-end: 31;
+}
+
+/* ------------------------- */
+
+.sub-nav-signup-button{
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-column-start: 31;
+  grid-column-end: 34;
+}
+
+/* ------------------------- */
