@@ -1,5 +1,6 @@
 import React from 'react'
 import './HomePageCss.css'
+import { Link } from 'react-router-dom'
 
 function HomePage(props){
   
@@ -16,7 +17,9 @@ function HomePage(props){
     <div className="b-tweet-label">tweet</div>
     <div className="b-info-updater">info box</div>
     <div className="b-tweet-container">tweet container</div>
-    <div className="b-us-map">map</div>
+    <div className="b-us-map">
+      <Link to="/state-page">map</Link>
+      </div>
     </div>
   )
 }
