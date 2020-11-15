@@ -103,6 +103,8 @@ dist
 # TernJS port file
 .tern-port
 
+# React build dir
+build/
 
 #backened
 venv/
