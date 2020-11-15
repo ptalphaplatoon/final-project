@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Route, Switch } from 'react-router-dom'
 import './App.css'
+
 
 import StatePage from './components/State_Page/State-Page.js'
 import HomePage from './pages/HomePage/HomePage.js'
@@ -23,6 +25,7 @@ function App(props) {
   }
   
   return (
+
     <Switch>
       <div id={'app-container'}>
         <div className="nav-bar">
@@ -35,6 +38,7 @@ function App(props) {
         </div>
       </div>
     </Switch>
+
     
   );
 }
