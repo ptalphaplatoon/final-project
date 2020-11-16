@@ -1,11 +1,14 @@
 import React from 'react'
 import './HomePageCss.css'
-import { Link } from 'react-router-dom'
+
 
 import Map from '../../components/Map/Map.js'
 
 function HomePage(props){
   
+console.log(props)
+const setStateName = props.setSName
+
   return(
     <div id="home-container">
     <div className="b-label-title">title</div>
@@ -14,7 +17,7 @@ function HomePage(props){
     <div className="b-info-updater">info box</div>
     <div className="b-tweet-container">tweet container</div>
     <div className="b-us-map">
-      <Map />
+      <Map setSName={setStateName}/>
       </div>
     </div>
   )

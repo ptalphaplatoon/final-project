@@ -3,16 +3,26 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4geodata_usaLow from "@amcharts/amcharts4-geodata/usaLow.js";
 import am4themes_animated from '@amcharts/amcharts4/themes/animated.js'
+
+import { useHistory } from 'react-router-dom'
+
+
+// import StatePage from '../State_Page/State-Page.js'
 import './MapCss.css'
 
 
 function Map (props){
-  
+// Setting useHistory to a variable history
+const history = useHistory()
+
+// Create useState to store State name to be passed to State-Page
+  console.log(props)
+
 // Themes begin
 am4core.useTheme(am4themes_animated);
 
 // Create map instance
-var chart = am4core.create("chartdiv", am4maps.MapChart);
+let chart = am4core.create("chartdiv", am4maps.MapChart);
 
 // Set map definition
 chart.geodata = am4geodata_usaLow;
@@ -21,7 +31,7 @@ chart.geodata = am4geodata_usaLow;
 chart.projection = new am4maps.projections.AlbersUsa();
 
 // Create map polygon series
-var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
 
 //Set min/max fill color for each area
 polygonSeries.heatRules.push({
@@ -239,7 +249,7 @@ polygonSeries.data = [
 ];
 
 // Set up heat legend
-var heatLegend = chart.createChild(am4maps.HeatLegend);
+let heatLegend = chart.createChild(am4maps.HeatLegend);
 heatLegend.id = "heatLegend";
 heatLegend.series = polygonSeries;
 heatLegend.align = "right";
@@ -251,10 +261,10 @@ heatLegend.background.fillOpacity = 0.05;
 heatLegend.padding(5, 5, 5, 5);
 
 // Set up custom heat map legend labels using axis ranges
-var minRange = heatLegend.valueAxis.axisRanges.create();
+let minRange = heatLegend.valueAxis.axisRanges.create();
 minRange.label.horizontalCenter = "left";
 
-var maxRange = heatLegend.valueAxis.axisRanges.create();
+let maxRange = heatLegend.valueAxis.axisRanges.create();
 maxRange.label.horizontalCenter = "right";
 
 // Blank out internal heat legend value axis labels
@@ -264,27 +274,40 @@ heatLegend.valueAxis.renderer.labels.template.adapter.add("text", function(label
 
 // Update heat legend value labels
 polygonSeries.events.on("datavalidated", function(ev) {
-  var heatLegend = ev.target.map.getKey("heatLegend");
-  var min = heatLegend.series.dataItem.values.value.low;
-  var minRange = heatLegend.valueAxis.axisRanges.getIndex(0);
+  let heatLegend = ev.target.map.getKey("heatLegend");
+  let min = heatLegend.series.dataItem.values.value.low;
+  let minRange = heatLegend.valueAxis.axisRanges.getIndex(0);
   minRange.value = min;
   minRange.label.text = "" + heatLegend.numberFormatter.format(min);
 
-  var max = heatLegend.series.dataItem.values.value.high;
-  var maxRange = heatLegend.valueAxis.axisRanges.getIndex(1);
+  let max = heatLegend.series.dataItem.values.value.high;
+  let maxRange = heatLegend.valueAxis.axisRanges.getIndex(1);
   maxRange.value = max;
   maxRange.label.text = "" + heatLegend.numberFormatter.format(max);
 });
 
 // Configure series tooltip
-var polygonTemplate = polygonSeries.mapPolygons.template;
+let polygonTemplate = polygonSeries.mapPolygons.template;
 polygonTemplate.tooltipText = "{name}: {value}";
 polygonTemplate.nonScalingStroke = true;
 polygonTemplate.strokeWidth = 0.5;
 
 // Create hover state and set alternative fill color
-var hs = polygonTemplate.states.create("hover");
+let hs = polygonTemplate.states.create("hover");
 hs.properties.fill = am4core.color("#3c5bdc");
+
+// Function that fires when a State is clicked on
+const onStateClick=(sName)=>{
+  // console.log(stateName.toLowerCase())
+  props.setSName(sName)
+  history.push('/state-page')
+}
+
+// Created clickable States
+polygonTemplate.events.on("hit", function(ev){
+  // Create function calls that will fire when a State is clicked
+  onStateClick(ev.target.dataItem.dataContext.name)
+})
 
 
   return(

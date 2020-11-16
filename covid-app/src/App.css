@@ -2,8 +2,7 @@
   display: grid;
   grid-template-rows: repeat(3,1fr,2fr);
   grid-template-columns: repeat(33,1fr);
-  /* min-width: 100%; */
-  /* min-height: 100%; */
+
 }
 
 /* ----------------------- */
