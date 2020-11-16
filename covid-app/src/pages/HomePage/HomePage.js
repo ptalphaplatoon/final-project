@@ -2,6 +2,8 @@ import React from 'react'
 import './HomePageCss.css'
 import { Link } from 'react-router-dom'
 
+import Map from '../../components/Map/Map.js'
+
 function HomePage(props){
   
   return(
@@ -12,7 +14,7 @@ function HomePage(props){
     <div className="b-info-updater">info box</div>
     <div className="b-tweet-container">tweet container</div>
     <div className="b-us-map">
-      <Link to="/state-page">map</Link>
+      <Map />
       </div>
     </div>
   )

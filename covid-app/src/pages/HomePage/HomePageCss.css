@@ -16,6 +16,7 @@
 
 [class*="b-"]{
   background-color: lightblue;
+  padding: 0%;
 }
 
 .b-label-title{
@@ -68,6 +69,7 @@
   grid-row-end: 29;
   grid-column-start: 14;
   grid-column-end: 33;
+  background-color: white;
 }
 
 /* ------------------------- */
