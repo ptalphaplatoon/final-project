@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from './Nav'
+import NavBar from '../NavBar/NavBar'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 
