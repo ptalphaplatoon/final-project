@@ -29,18 +29,20 @@ function App(props) {
   
   return (
 
-    <Switch>
+    
       <div id={'app-container'}>
         <div className="nav-bar">
           <NavBar/>
         </div>
   {/*----------------------------------------------------- */}
         <div className={"body-container"}>
+        <Switch>
           <Route exact path="/" render={renderHomePage} />
           <Route exact path="/state-page" render={renderStatePage} />
-        </div>
+        </Switch>
       </div>
-    </Switch>
+    </div>
+    
 
     
   );

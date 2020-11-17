@@ -5,9 +5,10 @@ import './HomePageCss.css'
 import Map from '../../components/Map/Map.js'
 
 function HomePage(props){
-  
-console.log(props)
+
+// Name passed from the State clicked on
 const setStateName = props.setSName
+const chart = props.chart
 
   return(
     <div id="home-container">
@@ -17,7 +18,7 @@ const setStateName = props.setSName
     <div className="b-info-updater">info box</div>
     <div className="b-tweet-container">tweet container</div>
     <div className="b-us-map">
-      <Map setSName={setStateName}/>
+      <Map map={chart} setSName={setStateName}/>
       </div>
     </div>
   )

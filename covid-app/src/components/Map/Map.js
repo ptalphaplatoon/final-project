@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4geodata_usaLow from "@amcharts/amcharts4-geodata/usaLow.js";
 import am4themes_animated from '@amcharts/amcharts4/themes/animated.js'
 
 import { useHistory } from 'react-router-dom'
-
-
-// import StatePage from '../State_Page/State-Page.js'
 import './MapCss.css'
 
 
@@ -15,11 +12,11 @@ function Map (props){
 // Setting useHistory to a variable history
 const history = useHistory()
 
-// Create useState to store State name to be passed to State-Page
-  console.log(props)
-
+useEffect(()=>{
+  
 // Themes begin
 am4core.useTheme(am4themes_animated);
+
 
 // Create map instance
 let chart = am4core.create("chartdiv", am4maps.MapChart);
@@ -298,9 +295,9 @@ hs.properties.fill = am4core.color("#3c5bdc");
 
 // Function that fires when a State is clicked on
 const onStateClick=(sName)=>{
-  // console.log(stateName.toLowerCase())
   props.setSName(sName)
   history.push('/state-page')
+  
 }
 
 // Created clickable States
@@ -310,11 +307,12 @@ polygonTemplate.events.on("hit", function(ev){
 })
 
 
+},[props,history])
+
+
+
   return(
-    <div id="chartdiv">
-      
-    </div>
-    
+    <div id="chartdiv"></div>
   )
 }
 
