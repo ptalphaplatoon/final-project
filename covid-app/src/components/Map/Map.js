@@ -9,7 +9,7 @@ import './MapCss.css'
 
 
 function Map (props){
-// Setting useHistory to a variable history
+// Setting useHistory to a variable history. Use to push to component state-page
 const history = useHistory()
 
 useEffect(()=>{
@@ -34,8 +34,10 @@ let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
 polygonSeries.heatRules.push({
   property: "fill",
   target: polygonSeries.mapPolygons.template,
-  min: chart.colors.getIndex(1).brighten(1),
-  max: chart.colors.getIndex(1).brighten(-0.3)
+  // min: chart.colors.getIndex(1).brighten(1),
+  // max: chart.colors.getIndex(1).brighten(-0.3)
+  min: chart.colors.getIndex(8).brighten(3),
+  max: chart.colors.getIndex(8).brighten(-0.3)
 });
 
 // Make map load polygon data (state shapes and names) from GeoJSON
@@ -305,8 +307,6 @@ polygonTemplate.events.on("hit", function(ev){
   // Create function calls that will fire when a State is clicked
   onStateClick(ev.target.dataItem.dataContext.name)
 })
-
-
 },[props,history])
 
 

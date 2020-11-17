@@ -1,7 +1,6 @@
 import React from 'react'
 import './HomePageCss.css'
 
-
 import Map from '../../components/Map/Map.js'
 
 function HomePage(props){
