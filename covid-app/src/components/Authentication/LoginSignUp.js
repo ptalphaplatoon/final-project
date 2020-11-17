@@ -3,6 +3,8 @@ import NavBar from '../NavBar/NavBar'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 
+const BASE_URL = 'http://localhost:8080/covid/';
+
 class LoginSignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ class LoginSignUp extends React.Component {
 
   componentDidMount() {
     if (this.state.logged_in) {
-      fetch('https://crm-app-aika.herokuapp.com/crm_app/current_user/', {
+      fetch(`${BASE_URL}current_user/`, {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
         }
@@ -29,7 +31,7 @@ class LoginSignUp extends React.Component {
 
   handle_login = (e, data) => {
     e.preventDefault();
-    fetch('https://crm-app-aika.herokuapp.com/crm_app/token-auth/', {
+    fetch(`${BASE_URL}token-auth/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -94,7 +96,7 @@ class LoginSignUp extends React.Component {
     return (
       <div>
 
-        <Nav
+        <NavBar
           logged_in={this.state.logged_in}
           display_form={this.display_form}
           handle_logout={this.handle_logout}
