@@ -8,5 +8,5 @@ router = DefaultRouter()
 urlpatterns = [
     path('current_user/', current_user),
     path('users/', UserList.as_view()),
-    #path('', include(router.urls))
+    path('', include(router.urls))
 ]

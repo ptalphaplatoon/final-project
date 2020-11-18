@@ -134,6 +134,8 @@ REST_FRAMEWORK = {
     ),
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'covid_api.utils.my_jwt_response_handler'
 }
