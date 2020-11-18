@@ -8,7 +8,7 @@ function State_Page(props){
     <div id="StatePage-container">
       <div className="a-api_feed_title">PUBLIC COMMENT</div>
       <div className="a-api_feed_container"></div>
-      <div className="a-api_add_feed_button"><Link to="add-comments">Add Comment</Link></div>
+      <div className="a-api_add_feed_button"><Link to="/add-comments">Add Comment</Link></div>
       <div className="a-state_name_container">{STATENAME}</div>
       <div className="a-state_info_container"></div>
     </div>
