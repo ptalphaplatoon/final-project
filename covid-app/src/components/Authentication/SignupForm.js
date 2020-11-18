@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class SignupForm extends React.Component {
+
+
   state = {
     username: '',
     password: ''
@@ -18,6 +20,7 @@ class SignupForm extends React.Component {
   };
 
   render() {
+    console.log("sign up form is called")
     return (
       <form onSubmit={e => this.props.handle_signup(e, this.state)}>
         <h4>Sign Up</h4>
