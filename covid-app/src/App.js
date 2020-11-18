@@ -7,6 +7,7 @@ import './App.css'
 import StatePage from './components/State_Page/State-Page.js'
 import HomePage from './pages/HomePage/HomePage.js'
 import NavBar from './components/NavBar/NavBar.js'
+import Comments from './components/Comments/Comments.js'
 
 
 
@@ -39,6 +40,7 @@ function App(props) {
         <Switch>
           <Route exact path="/" render={renderHomePage} />
           <Route exact path="/state-page" render={renderStatePage} />
+          <Route exact path="/add-comments" component={Comments}/>
         </Switch>
       </div>
     </div>
