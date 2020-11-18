@@ -31,8 +31,16 @@
 /* ------------------------------------- */
 .a-api_feed_container{
   grid-row-start: 5;
-  grid-row-end: 33;
+  grid-row-end: 29;
   grid-column-start: 2;
+  grid-column-end: 12;
+  
+}
+/* ------------------------------------- */
+.a-api_add_feed_button{
+  grid-row-start: 30;
+  grid-row-end: 31;
+  grid-column-start: 8;
   grid-column-end: 12;
   
 }
@@ -46,8 +54,8 @@
 }
 /* ------------------------------------- */
 .a-state_info_container{
-  grid-row-start: 6;
-  grid-row-end: 33;
+  grid-row-start: 5;
+  grid-row-end: 29;
   grid-column-start: 13;
   grid-column-end: 32;
 }
