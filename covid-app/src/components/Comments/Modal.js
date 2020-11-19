@@ -38,7 +38,7 @@ export const Modal = ({
             </svg>
           </button>
           <div className="modal-body">
-            <Comments />
+            <Comments close={closeModal}/>
           </div>
         </div>
       </aside>

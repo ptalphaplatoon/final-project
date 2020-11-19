@@ -5,6 +5,8 @@ import TriggerButton from './TriggerButton.js';
 
 export class Container extends Component {
   state = { isShown: false };
+
+  
   showModal = () => {
     this.setState({ isShown: true }, () => {
       this.closeButton.focus();
