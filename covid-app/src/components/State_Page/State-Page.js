@@ -1,7 +1,7 @@
 import React from 'react'
 import './State-PageCss.css'
 import Container from '../Comments/Container.js'
-import { Link } from 'react-router-dom'
+
 
 function State_Page(props){
   const STATENAME = props.sName
