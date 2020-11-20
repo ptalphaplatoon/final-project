@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css'
 
-
 import StatePage from './components/State_Page/State-Page.js'
 import HomePage from './pages/HomePage/HomePage.js'
 import NavBar from './components/NavBar/NavBar.js'

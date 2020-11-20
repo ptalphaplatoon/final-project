@@ -6,9 +6,19 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated.js'
 
 import { useHistory } from 'react-router-dom'
 import './MapCss.css'
-
+import {fetchCurrentUSValues, fetchHistoricUSValues} from '../../api/InfectionsAPI'; 
 
 function Map (props){
+
+    const [currentUSValues, setCurrentUSValues]=useState([])
+
+
+    async function getCurrentUSValues() {
+        const currentUSValue = await fetchCurrentUSValues()
+        setCurrentUSValues(currentUSValue)
+    }
+      
+
 // Setting useHistory to a variable history. Use to push to component state-page
 const history = useHistory()
 
