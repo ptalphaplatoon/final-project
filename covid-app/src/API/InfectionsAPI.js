@@ -101,4 +101,68 @@ export {
     fetchCurrentSingleStateValues,
 };
 
+// import {fetchHistoricUSValues,
+//     fetchCurrentUSValues,
+//     fetchStateMetaData,
+//     fetchSingleStateMetaData,
+//     fetchHistoricStateValues,
+//     fetchCurrentStateValues,
+//     fetchHistoricSingleStateValues,
+//     fetchCurrentSingleStateValues,} from '../../api/InfectionsAPI'; 
 
+// React.useEffect(() => {
+//     async function getCurrentUSValues() {
+//         const data = await fetchCurrentUSValues()
+//         setCurrentUSValues(data)
+//         console.log(data)
+//     }
+//     getCurrentUSValues()
+// })
+
+// const [currentUSValues, setCurrentUSValues]=useState([])
+// async function getCurrentUSValues() {
+//     const data = await fetchCurrentUSValues()
+//     setCurrentUSValues(data)
+// }
+
+// const [historicUSValues, setHistoricUSValues]=useState([])
+// async function getHistoricUSValues() {
+//     const data = await fetchHistoricUSValues()
+//     setHistoricUSValues(data)
+// }
+
+// const [stateMetaData, setStateMetaData]=useState([])
+// async function getStateMetaData() {
+//     const data = await fetchStateMetaData()
+//     setStateMetaData(data)
+// }
+
+// const [singleStateMetaData, setSingleStateMetaData]=useState([])
+// async function getSingleStateMetaData() {
+//     const data = await fetchSingleStateMetaData()
+//     setSingleStateMetaData(data)
+// }
+
+// const [historicStateValues, setHistoricStateValues]=useState([])
+// async function getHistoricStateValues() {
+//     const data = await fetchHistoricStateValues()
+//     setHistoricStateValues(data)
+// }
+
+// const [CurrentStateValues, setCurrentStateValues]=useState([])
+// async function getCurrentStateValues() {
+//     const data = await fetchCurrentStateValues()
+//     setCurrentStateValues(data)
+// }
+
+// const [HistoricSingleStateValues, setHistoricSingleStateValues]=useState([])
+// async function getHistoricSingleStateValues() {
+//     const data = await fetchHistoricSingleStateValues()
+//     setHistoricSingleStateValues(data)
+// }
+
+// const [CurrentSingleStateValues, setCurrentSingleStateValues]=useState([])
+// async function getCurrentSingleStateValues() {
+//     const data = await fetchCurrentSingleStateValues()
+//     setCurrentSingleStateValues(data)
+// }
