@@ -14,7 +14,7 @@ function HomePage(props){
     })
 
     const lastUpdateBox = props.currentUSValues.map(function (values, index) {
-        return(<div key={index} >Data as of: {values.lastModified}</div>)
+        return(<div key={index} >Last Updated: {values.lastModified}</div>)
     })
 
     return(
