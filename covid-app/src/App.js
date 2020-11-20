@@ -6,12 +6,11 @@ import './App.css'
 import StatePage from './components/State_Page/State-Page.js'
 import HomePage from './pages/HomePage/HomePage.js'
 import NavBar from './components/NavBar/NavBar.js'
+import LoginSignUp from './components/Authentication/LoginSignUp'
 
 import {fetchCurrentUSValues} from './API/InfectionsAPI'; 
 
 function App(props) {
-  
-  
     //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
   const [stateName,setStateName]=useState('')
   const [currentUSValues, setCurrentUSValues]=useState([])
@@ -24,9 +23,9 @@ function App(props) {
       getCurrentUSValues()
   },[])
 
-  const renderStatePage =(props)=>{
-    return(
-      <StatePage sName={stateName}/>
+  const renderStatePage = (props) => {
+    return (
+      <StatePage sName={stateName} />
     )
   }
 
@@ -39,7 +38,8 @@ function App(props) {
   return (  
     <div id={'app-container'}>
         <div className="nav-bar">
-          <NavBar/>
+            <LoginSignUp />
+            <NavBar/>
         </div>
   {/*----------------------------------------------------- */}
         <div className={"body-container"}>
@@ -49,9 +49,9 @@ function App(props) {
             </Switch>
         </div>
     </div>
-    
 
-    
+
+
   );
 }
 
