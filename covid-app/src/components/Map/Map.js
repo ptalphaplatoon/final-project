@@ -6,18 +6,64 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated.js'
 
 import { useHistory } from 'react-router-dom'
 import './MapCss.css'
-import {fetchCurrentUSValues, fetchHistoricUSValues} from '../../api/InfectionsAPI'; 
+import {fetchHistoricUSValues,
+    fetchCurrentUSValues,
+    fetchStateMetaData,
+    fetchSingleStateMetaData,
+    fetchHistoricStateValues,
+    fetchCurrentStateValues,
+    fetchHistoricSingleStateValues,
+    fetchCurrentSingleStateValues,} from '../../api/InfectionsAPI'; 
 
 function Map (props){
 
     const [currentUSValues, setCurrentUSValues]=useState([])
-
-
     async function getCurrentUSValues() {
-        const currentUSValue = await fetchCurrentUSValues()
-        setCurrentUSValues(currentUSValue)
+        const data = await fetchCurrentUSValues()
+        setCurrentUSValues(data)
     }
-      
+
+    const [historicUSValues, setHistoricUSValues]=useState([])
+    async function getHistoricUSValues() {
+        const data = await fetchHistoricUSValues()
+        setHistoricUSValues(data)
+    }
+
+    const [stateMetaData, setStateMetaData]=useState([])
+    async function getStateMetaData() {
+        const data = await fetchStateMetaData()
+        setStateMetaData(data)
+    }
+
+    const [singleStateMetaData, setSingleStateMetaData]=useState([])
+    async function getSingleStateMetaData() {
+        const data = await fetchSingleStateMetaData()
+        setSingleStateMetaData(data)
+    }
+
+    const [historicStateValues, setHistoricStateValues]=useState([])
+    async function getHistoricStateValues() {
+        const data = await fetchHistoricStateValues()
+        setHistoricStateValues(data)
+    }
+
+    const [CurrentStateValues, setCurrentStateValues]=useState([])
+    async function getCurrentStateValues() {
+        const data = await fetchCurrentStateValues()
+        setCurrentStateValues(data)
+    }
+
+    const [HistoricSingleStateValues, setHistoricSingleStateValues]=useState([])
+    async function getHistoricSingleStateValues() {
+        const data = await fetchHistoricSingleStateValues()
+        setHistoricSingleStateValues(data)
+    }
+
+    const [CurrentSingleStateValues, setCurrentSingleStateValues]=useState([])
+    async function getCurrentSingleStateValues() {
+        const data = await fetchCurrentSingleStateValues()
+        setCurrentSingleStateValues(data)
+    }
 
 // Setting useHistory to a variable history. Use to push to component state-page
 const history = useHistory()
