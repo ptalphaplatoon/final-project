@@ -6,15 +6,18 @@ import './App.css'
 import StatePage from './components/State_Page/State-Page.js'
 import HomePage from './pages/HomePage/HomePage.js'
 import NavBar from './components/NavBar/NavBar.js'
+import LoginSignUp from './components/Authentication/LoginSignUp'
 
 import {fetchCurrentUSValues} from './API/InfectionsAPI'; 
 
 function App(props) {
+
   
   
     //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
   const [stateName,setStateName]=useState('')
   const [currentUSValues, setCurrentUSValues]=useState([])
+
 
   React.useEffect(() => {
       async function getCurrentUSValues() {
@@ -24,11 +27,12 @@ function App(props) {
       getCurrentUSValues()
   },[])
 
-  const renderStatePage =(props)=>{
-    return(
-      <StatePage sName={stateName}/>
+  const renderStatePage = (props) => {
+    return (
+      <StatePage sName={stateName} />
     )
   }
+
 
   const renderHomePage =(props)=>{
     return(
@@ -48,10 +52,11 @@ function App(props) {
                 <Route exact path="/state-page" render={renderStatePage} />
             </Switch>
         </div>
-    </div>
-    
 
-    
+    </div>
+
+
+
   );
 }
 
