@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css'
 
-
 import StatePage from './components/State_Page/State-Page.js'
 import HomePage from './pages/HomePage/HomePage.js'
 import NavBar from './components/NavBar/NavBar.js'
@@ -12,13 +11,21 @@ import Comments from './components/Comments/Comments.js'
 
 import LoginSignUp from './components/Authentication/LoginSignUp'
 
-
+import {fetchCurrentUSValues} from './API/InfectionsAPI'; 
 
 
 function App(props) {
-  //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
-  const [stateName, setStateName] = useState('')
+    //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
+  const [stateName,setStateName]=useState('')
+  const [currentUSValues, setCurrentUSValues]=useState([])
 
+  React.useEffect(() => {
+      async function getCurrentUSValues() {
+          const data = await fetchCurrentUSValues()
+          setCurrentUSValues(data)
+      }
+      getCurrentUSValues()
+  },[])
 
   const renderStatePage = (props) => {
     return (
@@ -26,16 +33,15 @@ function App(props) {
     )
   }
 
-  const renderHomePage = (props) => {
-    return (
-      <HomePage setSName={setStateName} />
+  const renderHomePage =(props)=>{
+    return(
+      <HomePage setSName={setStateName} currentUSValues={currentUSValues}/>
     )
   }
 
-  return (
-
-
+  return (  
     <div id={'app-container'}>
+
       <div className="nav-bar">
         <LoginSignUp />
         <NavBar />
@@ -48,6 +54,7 @@ function App(props) {
           <Route exact path="/add-comments" component={Comments}/>
         </Switch>
       </div>
+
     </div>
 
 
