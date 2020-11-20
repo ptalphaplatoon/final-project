@@ -41,20 +41,6 @@
 
 /* ------------------------- */
 
-.sub-nav-login-button{
-  grid-row-start: 4;
-  grid-row-end: 5;
-  grid-column-start: 28;
-  grid-column-end: 31;
-}
 
-/* ------------------------- */
-
-.sub-nav-signup-button{
-  grid-row-start: 4;
-  grid-row-end: 5;
-  grid-column-start: 31;
-  grid-column-end: 34;
-}
 
 /* ------------------------- */
