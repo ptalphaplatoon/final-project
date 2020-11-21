@@ -82,6 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'covid-api',
+        'USER': 'ptalpha',
+        'PASSWORD': 'ptalpha',
+
     }
 }
 

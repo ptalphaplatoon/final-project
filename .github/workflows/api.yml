@@ -25,3 +25,8 @@ jobs:
           heroku_app_name: "pt-alpha-final-project"
           heroku_email: "veronica25@gmail.com"
           appdir: "covid-api-backend"
+          
+      - name: Run migrations
+        run: python manage.py migrate
+      - name: Run tests
+        run: python manage.py test
