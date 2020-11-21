@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
+from .models import Posts
+
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -8,6 +11,19 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username',)
+
+class PostsSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    class Meta:
+        model = Posts
+        fields = ['author_id', 'id','title', 'description', 'author']
+    
+    # def save(self, *args, **kwargs):
+    #     print("args", args)
+    #     print("kwargs", kwargs)
+    #     kwargs['author_id'] = User.objects.get(pk=author_id)
+    #     return super(PostSerializer, self).save(*args, **kwargs)
+
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
