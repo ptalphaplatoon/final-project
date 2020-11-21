@@ -13,10 +13,18 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username',)
 
 class PostsSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(read_only=True)
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Posts
-        fields = ['pk','title', 'description', 'author']
+        fields = ['author_id', 'id','title', 'description', 'author']
+    
+    # def save(self, *args, **kwargs):
+    #     print("args", args)
+    #     print("kwargs", kwargs)
+    #     kwargs['author_id'] = User.objects.get(pk=author_id)
+    #     return super(PostSerializer, self).save(*args, **kwargs)
+
+
 
 class UserSerializerWithToken(serializers.ModelSerializer):
 
