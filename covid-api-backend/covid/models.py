@@ -1,13 +1,17 @@
 from django.db import models
 from django.utils import timezone
+# from django.conf import settings
+# from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
+
+# def get_sentinel_user():
+#     return get_user_model().objects.get_or_create(username='deleted')[0]
 
 class Posts(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
-    created_at = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user + ' ' + self.title  
+        return f'{self.author}  {self.title}'  
         

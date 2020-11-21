@@ -3,10 +3,7 @@ from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
 from .models import Posts
 
-class PostsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Posts
-        fields = ['pk','title', 'description', 'created_at', 'author']
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,6 +12,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username',)
 
+class PostsSerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        model = Posts
+        fields = ['pk','title', 'description', 'author']
 
 class UserSerializerWithToken(serializers.ModelSerializer):
 
