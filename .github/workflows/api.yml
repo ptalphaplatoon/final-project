@@ -8,9 +8,38 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  run_tests:
-    name: Run Django Tests
+  # run_tests:
+  #   name: Run Django Tests
+  #   runs-on: ubuntu-latest
+  #   services:
+  #     db:
+  #       image: postgres:12.3-alpine
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_PASSWORD: postgres
+  #         POSTGRES_DB: github_actions
+  #       ports:
+  #         - 5432:5432
+  #       options: --mount type=tmpfs,destination=/var/lib/postgresql/data --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v1
+  #     - name: Set up Python 3.7
+  #       uses: actions/setup-python@v1
+  #       with:
+  #         python-version: 3.75
+  #     - name: Install dependencies
+  #       run: pip install -r app/requirements.txt
+  #     - name: Run tests
+  #       run: python covid-api-backend/manage.py test covid-api-backend/
+  #       env:
+  #         SYSTEM_ENV: GITHUB_WORKFLOW
+
+  # This workflow contains a single job called "build"
+  build and test:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
     services:
       db:
         image: postgres:12.3-alpine
@@ -21,29 +50,21 @@ jobs:
         ports:
           - 5432:5432
         options: --mount type=tmpfs,destination=/var/lib/postgresql/data --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Set up Python 3.8.5
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8.5
-      - name: Install dependencies
-        run: pip install -r app/requirements.txt
-      - name: Run tests
-        run: python covid-api-backend/manage.py test covid-api-backend/
-        env:
-          SYSTEM_ENV: GITHUB_WORKFLOW
-
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      # Run tests
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.75
+      - name: Install dependencies
+        run: pip install -r app/requirements.txt
+      - name: Run tests
+        run: python covid-api-backend/manage.py test covid-api-backend/
 
       # Runs a single command using the runners shell
       - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
