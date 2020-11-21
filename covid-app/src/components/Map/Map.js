@@ -7,8 +7,8 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated.js'
 import { useHistory } from 'react-router-dom'
 import './MapCss.css'
 
-
 function Map (props){
+
 // Setting useHistory to a variable history. Use to push to component state-page
 const history = useHistory()
 
