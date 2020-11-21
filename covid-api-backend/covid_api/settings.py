@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'covid',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'health_check',
 ]
 
 MIDDLEWARE = [
@@ -82,9 +83,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'covid-api',
-        'USER': 'ptalpha',
-        'PASSWORD': 'ptalpha',
-
     }
 }
 
