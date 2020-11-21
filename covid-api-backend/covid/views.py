@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
+from .models import Posts
 from .serializers import PostsSerializer
 
 class PostsViewSet(viewsets.ModelViewSet):
