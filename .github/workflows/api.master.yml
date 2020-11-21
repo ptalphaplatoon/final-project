@@ -47,7 +47,3 @@ jobs:
           heroku_app_name: "pt-alpha-final-project"
           heroku_email: "veronica25@gmail.com"
           appdir: "covid-api-backend"
-          # healthcheck: "https://pt-alpha-final-project.herokuapp.com/health"
-          # checkstring: "{\"DatabaseBackend\":\"working\"}"
-          # rollbackonhealthcheckfailed: true 
-          # delay: 5

@@ -4,7 +4,7 @@ name: Deploy API
 # events but only for the master branch
 on:
   pull_request:
-    branches: [ master 
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -39,15 +39,3 @@ jobs:
         run: pip install -r covid-api-backend/requirements.txt
       - name: Run tests
         run: python covid-api-backend/manage.py test covid-api-backend/
-
-      # Runs a single command using the runners shell
-      - uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "pt-alpha-final-project"
-          heroku_email: "veronica25@gmail.com"
-          appdir: "covid-api-backend"
-          # healthcheck: "https://pt-alpha-final-project.herokuapp.com/health"
-          # checkstring: "{\"DatabaseBackend\":\"working\"}"
-          # rollbackonhealthcheckfailed: true 
-          # delay: 5
