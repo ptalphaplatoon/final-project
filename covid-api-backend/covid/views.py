@@ -7,6 +7,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
+from .serializers import PostsSerializer
+
+class PostsViewSet(viewsets.ModelViewSet):
+    queryset = Posts.objects.all()
+    serializer_class = PostsSerializer
 
 
 @api_view(['GET'])
