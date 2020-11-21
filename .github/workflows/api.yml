@@ -25,7 +25,9 @@ jobs:
           heroku_app_name: "pt-alpha-final-project"
           heroku_email: "veronica25@gmail.com"
           appdir: "covid-api-backend"
-
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '11'
       - name: Run migrations
         run: cd covid-api-backend; python manage.py migrate
       - name: Run tests
