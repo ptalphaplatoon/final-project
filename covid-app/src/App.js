@@ -11,21 +11,23 @@ import Comments from './components/Comments/Comments.js'
 
 import LoginSignUp from './components/Authentication/LoginSignUp'
 
-import {fetchCurrentUSValues} from './API/InfectionsAPI'; 
+import { fetchCurrentUSValues } from './API/InfectionsAPI';
+
+import UserProfile from './components/UserProfile/UserProfile.js'
 
 
 function App(props) {
-    //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
-  const [stateName,setStateName]=useState('')
-  const [currentUSValues, setCurrentUSValues]=useState([])
+  //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
+  const [stateName, setStateName] = useState('')
+  const [currentUSValues, setCurrentUSValues] = useState([])
 
   React.useEffect(() => {
-      async function getCurrentUSValues() {
-          const data = await fetchCurrentUSValues()
-          setCurrentUSValues(data)
-      }
-      getCurrentUSValues()
-  },[])
+    async function getCurrentUSValues() {
+      const data = await fetchCurrentUSValues()
+      setCurrentUSValues(data)
+    }
+    getCurrentUSValues()
+  }, [])
 
   const renderStatePage = (props) => {
     return (
@@ -33,13 +35,13 @@ function App(props) {
     )
   }
 
-  const renderHomePage =(props)=>{
-    return(
-      <HomePage setSName={setStateName} currentUSValues={currentUSValues}/>
+  const renderHomePage = (props) => {
+    return (
+      <HomePage setSName={setStateName} currentUSValues={currentUSValues} />
     )
   }
 
-  return (  
+  return (
     <div id={'app-container'}>
 
       <div className="nav-bar">
@@ -51,7 +53,8 @@ function App(props) {
         <Switch>
           <Route exact path="/" render={renderHomePage} />
           <Route exact path="/state-page" render={renderStatePage} />
-          <Route exact path="/add-comments" component={Comments}/>
+          <Route exact path="/add-comments" component={Comments} />
+          <Route exact path="/user-profile" component={UserProfile} />
         </Switch>
       </div>
 
