@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:8000/covid/';
-//const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
+//const BASE_URL = 'http://localhost:8000/covid/';
+const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
 
 
 export const postsGetAll = (token) => {
