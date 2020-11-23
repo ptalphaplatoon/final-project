@@ -14,12 +14,6 @@ export const postsGetAll = (token) => {
     .then((response) => response.json())
 }
 
-// export const getPostsByAuthor = async (author) => {
-//   const response = await fetch(`${BASE_URL}/covid/posts/?filter={"where":{"author":"${author}"}}`);
-//   const data = await response.json();
-//   return data;
-// };
-
 export const getPostsByAuthor = (token, author) => {
   return fetch(`${BASE_URL}posts?filter={"where":{"author":"${author}"}}`, {
     method: 'get',
