@@ -17,16 +17,23 @@ function HomePage(props){
         return(<div key={index} >Last Updated: {values.lastModified}</div>)
     })
 
+    const currentStateInfNums = props.currentStateValues.map(function (values) {
+        var text = {"id":"US-" + values.state, 
+                    "value": values.positive
+                    }
+        return text
+    })
+
     return(
         <div id="home-container">
-        <div className="b-label-title">title</div>
-        <div className="b-updated-lable">{lastUpdateBox}</div>
-        <div className="b-tweet-label">tweet</div>
-        <div className="b-info-updater">{infoBox}</div>
-        <div className="b-tweet-container">tweet container</div>
-        <div className="b-us-map">
-        <Map map={chart} setSName={setStateName}/>
-        </div>
+            <div className="b-label-title">title</div>
+            <div className="b-updated-lable">{lastUpdateBox}</div>
+            <div className="b-tweet-label">tweet</div>
+            <div className="b-info-updater">{infoBox}</div>
+            <div className="b-tweet-container">tweet container</div>
+            <div className="b-us-map">
+                <Map map={chart} setSName={setStateName} currentstateInfNums={currentStateInfNums}/>
+            </div>
         </div>
     )
 }

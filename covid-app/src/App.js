@@ -8,23 +8,30 @@ import HomePage from './pages/HomePage/HomePage.js'
 import NavBar from './components/NavBar/NavBar.js'
 
 import Comments from './components/Comments/Comments.js'
-
 import LoginSignUp from './components/Authentication/LoginSignUp'
-
-import {fetchCurrentUSValues} from './API/InfectionsAPI'; 
+import {fetchCurrentUSValues, fetchCurrentStateValues} from './API/InfectionsAPI'; 
 
 
 function App(props) {
     //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
   const [stateName,setStateName]=useState('')
   const [currentUSValues, setCurrentUSValues]=useState([])
+  const [currentStateValues, setCurrentStateValues]=useState([])
 
   React.useEffect(() => {
       async function getCurrentUSValues() {
-          const data = await fetchCurrentUSValues()
-          setCurrentUSValues(data)
+        const data = await fetchCurrentUSValues()
+        setCurrentUSValues(data)
       }
       getCurrentUSValues()
+  },[])
+
+  React.useEffect(() => {
+      async function getCurrentStateValues() {
+        const data = await fetchCurrentStateValues()
+        setCurrentStateValues(data)
+      }
+      getCurrentStateValues()
   },[])
 
   const renderStatePage = (props) => {
@@ -35,7 +42,7 @@ function App(props) {
 
   const renderHomePage =(props)=>{
     return(
-      <HomePage setSName={setStateName} currentUSValues={currentUSValues}/>
+      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues}/>
     )
   }
 
@@ -46,7 +53,7 @@ function App(props) {
         <LoginSignUp />
         <NavBar />
       </div>
-      {/*----------------------------------------------------- */}
+
       <div className={"body-container"}>
         <Switch>
           <Route exact path="/" render={renderHomePage} />
