@@ -3,7 +3,7 @@ import Nav from './Nav'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 
-// const BASE_URL = 'http://localhost:8000/';
+//const BASE_URL = 'http://localhost:8000/';
 const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
 
 class LoginSignUp extends React.Component {
@@ -45,9 +45,14 @@ class LoginSignUp extends React.Component {
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.user.username
+          username: json.user.username,
+
         });
+
+
+        localStorage.setItem('username', json.user.username)
       });
+
   };
 
   handle_signup = (e, data) => {
