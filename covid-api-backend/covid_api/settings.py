@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import django_heroku
 from pathlib import Path
 import datetime
 
@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'covid',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'health_check',                             # required
+    'health_check.db',                          # stock Django health checkers
+    'health_check.cache',
+    'health_check.storage',
+    'health_check.contrib.migrations',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +146,5 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'covid_api.utils.my_jwt_response_handler',
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=3),
 }
+
+django_heroku.settings(locals())
