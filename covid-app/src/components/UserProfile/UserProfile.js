@@ -13,7 +13,7 @@ export const UserProfile = (props) => {
 
   useEffect(() => {
     getPostsByAuthor(token, author).then(d => setPosts(d))
-  }, [token])
+  }, [token, author])
 
   return (
     <div>
