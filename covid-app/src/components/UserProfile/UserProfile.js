@@ -20,7 +20,7 @@ export const UserProfile = (props) => {
       <h1>All Posts from author: {author}</h1>
       <ul>
         {posts && posts.map(item =>
-          <li key={item.pk}>
+          <li key={item.id}>
             <h1>Post Title: {item.title}</h1>
             <h2>Post Description {item.description}</h2>
           </li>)}
