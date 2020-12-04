@@ -12,7 +12,8 @@ class LoginSignUp extends React.Component {
     this.state = {
       displayed_form: '',
       logged_in: localStorage.getItem('token') ? true : false,
-      username: ''
+      username: '',
+      invalid_credentials_warning: false
     };
   }
 
@@ -39,21 +40,25 @@ class LoginSignUp extends React.Component {
       },
       body: JSON.stringify(data)
     })
-      .then(res => res.json())
-      .then(json => {
+    .then(res => {
+      if (res['status'] >= 400) {
+        this.setState({
+          logged_in: false,
+          invalid_credentials_warning: true
+        });
+      } 
+      else {
+        const json = res.json()
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
           displayed_form: '',
           username: json.user.username,
-
         });
-
-
         localStorage.setItem('username', json.user.username)
-      });
-
-  };
+      }
+    })
+  }
 
   handle_signup = (e, data) => {
     e.preventDefault();
@@ -91,7 +96,7 @@ class LoginSignUp extends React.Component {
     let form;
     switch (this.state.displayed_form) {
       case 'login':
-        form = <LoginForm handle_login={this.handle_login} />;
+        form = <LoginForm handle_login={this.handle_login} invalid_credentials_warning={this.state.invalid_credentials_warning}/>;
         break;
       case 'signup':
         form = <SignupForm handle_signup={this.handle_signup} />;

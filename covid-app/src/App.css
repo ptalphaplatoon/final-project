@@ -27,3 +27,7 @@
 
 /* ----------------------- */
 
+.invalid-credentials-warning{
+  color:red;
+  padding: 5px
+}
