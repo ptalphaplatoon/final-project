@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -6,21 +6,31 @@ import './HomePageChartCSS.css'
 
 function HomePageChart (props){
 
-    useEffect(()=>{ 
-        // let bullet
+    //https://www.amcharts.com/docs/v4/tutorials/chart-was-not-disposed/
+    am4core.options.autoDispose = true;
+
+    const historicUSChartData = props.historicUSValues.map(function (values) {
+        var newDate = new Date(values.dateChecked)
+        var obj = {"date": newDate,
+                    "Cases": values.positiveIncrease, 
+                    "Deaths": values.deathIncrease,
+                    "Hospitalized": values.hospitalizedIncrease
+                    }
+        return obj
+    })
+
         // Themes begin
         am4core.useTheme(am4themes_animated);
         // Themes end
 
         // Create chart instance
         let chart = am4core.create("linechartdiv", am4charts.XYChart);
-        //
 
         // Increase contrast by taking evey second color
         chart.colors.step = 2;
 
         // Add data
-        chart.data = generateChartData();
+        chart.data = historicUSChartData
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -90,46 +100,13 @@ function HomePageChart (props){
 
         createAxisAndSeries("Cases", "Cases", false, "circle");
         createAxisAndSeries("Deaths", "Deaths", true, "triangle");
-        createAxisAndSeries("Hospitalizations", "Hospitalizations", true, "rectangle");
+        createAxisAndSeries("Hospitalized", "Hospitalized", true, "rectangle");
 
         // Add legend
         chart.legend = new am4charts.Legend();
 
         // Add cursor
         chart.cursor = new am4charts.XYCursor();
-
-        // generate some random data, quite different range
-        function generateChartData() {
-        let chartData = [];
-        let firstDate = new Date();
-        firstDate.setDate(firstDate.getDate() - 100);
-        firstDate.setHours(0, 0, 0, 0);
-
-        let visits = 1600;
-        let hits = 2900;
-        let views = 8700;
-
-        for (var i = 0; i < 15; i++) {
-            // we create date objects here. In your data, you can have date strings
-            // and then set format of your dates using chart.dataDateFormat property,
-            // however when possible, use date objects, as this will speed up chart rendering.
-            let newDate = new Date(firstDate);
-            newDate.setDate(newDate.getDate() + i);
-
-            Cases += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
-            Deaths += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
-            Hospitalizations += Math.round((Math.random()<0.5?1:-1)*Math.random()*10);
-
-            chartData.push({
-            date: newDate,
-            Cases: Cases,
-            Deaths: Deaths,
-            Hospitalizations: Hospitalizations
-            });
-        }
-        return chartData
-        }
-    },[props])
 
     return (
         <div id="linechartdiv"></div>

@@ -9,14 +9,16 @@ import NavBar from './components/NavBar/NavBar.js'
 
 import Comments from './components/Comments/Comments.js'
 import LoginSignUp from './components/Authentication/LoginSignUp'
-import {fetchCurrentUSValues, fetchCurrentStateValues} from './API/InfectionsAPI'; 
+import {fetchCurrentUSValues, fetchCurrentStateValues, fetchHistoricUSValues} from './API/InfectionsAPI'; 
 
 
 function App(props) {
     //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
-  const [stateName,setStateName]=useState('')
+  
+    const [stateName,setStateName]=useState('')
   const [currentUSValues, setCurrentUSValues]=useState([])
   const [currentStateValues, setCurrentStateValues]=useState([])
+  const [historicUSValues, setHistoricUSValues]=useState([])
 
   React.useEffect(() => {
       async function getCurrentUSValues() {
@@ -24,6 +26,16 @@ function App(props) {
         setCurrentUSValues(data)
       }
       getCurrentUSValues()
+  },[])
+
+  React.useEffect(() => {
+      async function getHistoricUSValues() {
+          const data = await fetchHistoricUSValues()
+          data.splice(60)
+          data.reverse()
+          setHistoricUSValues(data)
+      }
+      getHistoricUSValues()
   },[])
 
   React.useEffect(() => {
@@ -42,7 +54,7 @@ function App(props) {
 
   const renderHomePage =(props)=>{
     return(
-      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues}/>
+      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} historicUSValues={historicUSValues}/>
     )
   }
 

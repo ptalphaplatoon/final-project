@@ -50,7 +50,7 @@ function HomePage(props){
         
         <div className="b-us-map">
             <Map map={chart} setSName={setStateName} currentstateInfNums={currentStateInfNums}/>
-            <HomePageChart/>
+            <HomePageChart historicUSValues = {props.historicUSValues}/>
         </div>
         {/* <div className="home-page-line-chart">
             
