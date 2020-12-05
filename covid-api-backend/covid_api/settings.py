@@ -12,9 +12,17 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import django_heroku
 from pathlib import Path
 import datetime
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [STATIC_DIR, ]
+STATIC_URL = '/static/'
+
+MEDIA_DIR = os.path.join(BASE_DIR, 'images')
+MEDIA_ROOT = MEDIA_DIR 
+MEDIA_URL = '/images/'
 
 
 # Quick-start development settings - unsuitable for production
