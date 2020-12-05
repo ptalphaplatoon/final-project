@@ -50,7 +50,6 @@ function HomePage(props){
             />
         </div>
         <div className="b-us-map">
-            {/* tooltipStats={tooltipStats} */}
             <Map map={chart} setSName={setStateName} currentstateInfNums={currentStateInfNums}/>
         </div>
         </div>
