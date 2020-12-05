@@ -3,7 +3,7 @@ import Nav from './Nav'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 
-// const BASE_URL = 'http://localhost:8000/';
+//const BASE_URL = 'http://localhost:8000/';
 const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
 
 class LoginSignUp extends React.Component {
@@ -12,22 +12,13 @@ class LoginSignUp extends React.Component {
     this.state = {
       displayed_form: '',
       logged_in: localStorage.getItem('token') ? true : false,
-      username: ''
+      username: '',
+      invalid_credentials_warning: false
     };
   }
 
   componentDidMount() {
-    if (this.state.logged_in) {
-      fetch(`${BASE_URL}/covid/current_user/`, {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({ username: json.username });
-        });
-    }
+    this.setState({username: localStorage.getItem('username')})
   }
 
   handle_login = (e, data) => {
@@ -38,17 +29,29 @@ class LoginSignUp extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(json => {
-        localStorage.setItem('token', json.token);
+    }).then( res => {
+      if (res['status'] >= 400) {
+        console.log('400 error')
+        this.setState({
+          logged_in: false,
+          invalid_credentials_warning: true
+        });
+      } 
+      else {
+        return res.json()
+      }}).then ( json => {
+        const username = json.user.username
+        const token = json.token
+        localStorage.setItem('token', token);
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.user.username
+          username: username,
+          invalid_credentials_warning: false
         });
-      });
-  };
+        localStorage.setItem('username', json.user.username)
+      })
+  }
 
   handle_signup = (e, data) => {
     e.preventDefault();
@@ -62,6 +65,7 @@ class LoginSignUp extends React.Component {
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
+        localStorage.setItem('username', json.username);
         this.setState({
           logged_in: true,
           displayed_form: '',
@@ -72,6 +76,7 @@ class LoginSignUp extends React.Component {
 
   handle_logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.setState({ logged_in: false, username: '' });
   };
 
@@ -86,7 +91,7 @@ class LoginSignUp extends React.Component {
     let form;
     switch (this.state.displayed_form) {
       case 'login':
-        form = <LoginForm handle_login={this.handle_login} />;
+        form = <LoginForm handle_login={this.handle_login} invalid_credentials_warning={this.state.invalid_credentials_warning}/>;
         break;
       case 'signup':
         form = <SignupForm handle_signup={this.handle_signup} />;

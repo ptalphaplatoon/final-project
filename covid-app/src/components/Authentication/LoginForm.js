@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class LoginForm extends React.Component {
   state = {
     username: '',
-    password: ''
+    password: '',
   };
 
   handle_change = e => {
@@ -36,6 +36,7 @@ class LoginForm extends React.Component {
           onChange={this.handle_change}
         />
         <input type="submit" />
+        {this.props.invalid_credentials_warning ? <span className='invalid-credentials-warning'>Invalid credentials. Please try again.</span> : <br/>}
       </form>
     );
   }

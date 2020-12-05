@@ -85,8 +85,18 @@ polygonSeries.events.on("datavalidated", function(ev) {
 });
 
 // Configure series tooltip
+
+//Tooltip Choices
+// "deaths"
+// "hospitalizedCurrently"
+// "hospitalizedCumulative"
+// "totalTests"
+// "positiveIncrease"
+// "deathIncrease"
+// "hospitalizedIncrease"
+// "totalTestResultsIncrease"
 let polygonTemplate = polygonSeries.mapPolygons.template;
-polygonTemplate.tooltipText = "{name}: {value}";
+polygonTemplate.tooltipText = "{name}\n\nCases: {value} +{positiveIncrease}\nDeaths: {deaths} +{deathIncrease}\nHospitalized: {hospitalizedCurrently} +{hospitalizedIncrease}\nTests: {totalTests} +{totalTestResultsIncrease}";
 polygonTemplate.nonScalingStroke = true;
 polygonTemplate.strokeWidth = 0.5;
 

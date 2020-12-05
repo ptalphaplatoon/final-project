@@ -25,7 +25,15 @@ function HomePage(props){
 
     const currentStateInfNums = props.currentStateValues.map(function (values) {
         var text = {"id":"US-" + values.state, 
-                    "value": values.positive
+                    "value": values.positive,
+                    "deaths": values.death,
+                    "hospitalizedCurrently": values.hospitalizedCurrently,
+                    "hospitalizedCumulative": values.hospitalizedCumulative,
+                    "totalTests": values.totalTestResults,
+                    "positiveIncrease": values.positiveIncrease,
+                    "deathIncrease": values.deathIncrease,
+                    "hospitalizedIncrease": values.hospitalizedIncrease,
+                    "totalTestResultsIncrease": values.totalTestResultsIncrease
                     }
         return text
     })
