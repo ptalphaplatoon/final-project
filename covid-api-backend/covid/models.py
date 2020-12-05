@@ -1,12 +1,26 @@
+import os
+import sys
 from django.db import models
-from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-# from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(null=True, blank=True)
+
+# from django.contrib.auth import get_user_model
+
+
+
+def upload_to(instance, filename):
+    now = timezone.now()
+    base, extension = os.path.splitext(filename.lower())
+    milliseconds = now.microsecond // 1000
+    return f"users/{instance.pk}/{now:%Y%m%d%H%M%S}{milliseconds}{extension}"
+
+class UserProfile(AbstractUser):
+    profile_pic = models.ImageField(_("Avatar"), upload_to=upload_to, blank=True)
+
+
 
 # def get_sentinel_user():
 #     return get_user_model().objects.get_or_create(username='deleted')[0]
