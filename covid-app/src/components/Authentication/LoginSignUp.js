@@ -18,17 +18,7 @@ class LoginSignUp extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.logged_in) {
-      fetch(`${BASE_URL}/covid/current_user/`, {
-        headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({ username: json.username });
-        });
-    }
+    this.setState({username: localStorage.getItem('username')})
   }
 
   handle_login = (e, data) => {
@@ -39,25 +29,28 @@ class LoginSignUp extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    })
-    .then(res => {
+    }).then( res => {
       if (res['status'] >= 400) {
+        console.log('400 error')
         this.setState({
           logged_in: false,
           invalid_credentials_warning: true
         });
       } 
       else {
-        const json = res.json()
-        localStorage.setItem('token', json.token);
+        return res.json()
+      }}).then ( json => {
+        const username = json.user.username
+        const token = json.token
+        localStorage.setItem('token', token);
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.user.username,
+          username: username,
+          invalid_credentials_warning: false
         });
         localStorage.setItem('username', json.user.username)
-      }
-    })
+      })
   }
 
   handle_signup = (e, data) => {
@@ -72,6 +65,7 @@ class LoginSignUp extends React.Component {
       .then(res => res.json())
       .then(json => {
         localStorage.setItem('token', json.token);
+        localStorage.setItem('username', json.username);
         this.setState({
           logged_in: true,
           displayed_form: '',
@@ -82,6 +76,7 @@ class LoginSignUp extends React.Component {
 
   handle_logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.setState({ logged_in: false, username: '' });
   };
 
