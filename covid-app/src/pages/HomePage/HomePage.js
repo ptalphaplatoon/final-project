@@ -32,31 +32,27 @@ function HomePage(props){
 
     return(
         <div id="home-container">
-        <div className="b-label-title">title</div>
-        <div className="b-updated-lable">{lastUpdateBox}</div>
-        
-        <div className="b-info-updater">{infoBox}</div>
-        <div className="b-tweet-container">
-            <Timeline
-                dataSource={{
-                    sourceType: 'profile',
-                    screenName: 'CDCgov'
-                }}
-                options={{
-                    height: '800'
-                }}
-            />
-        </div>
-        
-        <div className="b-us-map">
-            <Map map={chart} setSName={setStateName} currentstateInfNums={currentStateInfNums}/>
-            <HomePageChart historicUSValues = {props.historicUSValues}/>
-        </div>
-        {/* <div className="home-page-line-chart">
+            <div className="b-label-title">title</div>
+            <div className="b-updated-lable">{lastUpdateBox}</div>
             
-        </div> */}
+            <div className="b-info-updater">{infoBox}</div>
+            <div className="b-tweet-container">
+                <Timeline
+                    dataSource={{
+                        sourceType: 'profile',
+                        screenName: 'CDCgov'
+                    }}
+                    options={{
+                        height: '800'
+                    }}
+                />
+            </div>
+            
+            <div className="b-us-map">
+                <div className="home-page-line-chart"><HomePageChart historicUSValues = {props.historicUSValues}/></div>
+                <Map map={chart} setSName={setStateName} currentstateInfNums={currentStateInfNums}/>  
+            </div>
         </div>
-        
     )
 }
 
