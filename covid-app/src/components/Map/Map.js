@@ -108,7 +108,10 @@ hs.properties.fill = am4core.color("#3c5bdc");
 const onStateClick=(sName)=>{
   props.setSName(sName)
   history.push('/state-page')
-  
+  sessionStorage.setItem('stateName', sName);
+
+  // Save data to sessionStorage
+  let stateName = sessionStorage.getItem('stateName')
 }
 
 // Created clickable States
