@@ -32,6 +32,14 @@ function HomePage(props){
         return text
     })
 
+    React.useEffect(() => {
+        async function getStateCensusPopulations() {
+            const data = await fetchStateCensusPopulations()
+            setStateCensusPopulations(data)
+        }
+        getStateCensusPopulations()
+    })
+
     return(
         <div id="home-container">
         <div className="b-label-title">title</div>
