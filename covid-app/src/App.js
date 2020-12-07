@@ -10,14 +10,17 @@ import NavBar from './components/NavBar/NavBar.js'
 import Comments from './components/Comments/Comments.js'
 import LoginSignUp from './components/Authentication/LoginSignUp'
 import UserProfile from './components/UserProfile/UserProfile.js'
-import { fetchCurrentUSValues, fetchCurrentStateValues } from './API/InfectionsAPI';
 
+import {fetchCurrentUSValues, fetchCurrentStateValues, fetchHistoricUSValues} from './API/InfectionsAPI'; 
 
 function App(props) {
-  //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
-  const [stateName, setStateName] = useState('')
-  const [currentUSValues, setCurrentUSValues] = useState([])
-  const [currentStateValues, setCurrentStateValues] = useState([])
+    //Create State to store State name. setStateName is passed to the map and stateName is passed to State-Page
+  
+  const [stateName,setStateName]=useState('')
+  const [currentUSValues, setCurrentUSValues]=useState([])
+  const [currentStateValues, setCurrentStateValues]=useState([])
+  const [historicUSValues, setHistoricUSValues]=useState([])
+
 
   React.useEffect(() => {
     async function getCurrentUSValues() {
@@ -28,12 +31,22 @@ function App(props) {
   }, [])
 
   React.useEffect(() => {
-    async function getCurrentStateValues() {
-      const data = await fetchCurrentStateValues()
-      setCurrentStateValues(data)
-    }
-    getCurrentStateValues()
-  }, [])
+      async function getHistoricUSValues() {
+          const data = await fetchHistoricUSValues()
+          data.splice(60)
+          data.reverse()
+          setHistoricUSValues(data)
+      }
+      getHistoricUSValues()
+  },[])
+
+  React.useEffect(() => {
+      async function getCurrentStateValues() {
+        const data = await fetchCurrentStateValues()
+        setCurrentStateValues(data)
+      }
+      getCurrentStateValues()
+  },[])
 
   const renderStatePage = (props) => {
     return (
@@ -41,9 +54,9 @@ function App(props) {
     )
   }
 
-  const renderHomePage = (props) => {
-    return (
-      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} />
+  const renderHomePage =(props)=>{
+    return(
+      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} historicUSValues={historicUSValues}/>
     )
   }
 
