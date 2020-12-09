@@ -8,12 +8,15 @@ import {fetchSingleStateMetaData} from '../../API/InfectionsAPI';
 
 function State_Page(props){
   const STATENAME = props.sName
-  const abbrState = stateAbbr[STATENAME]
+  let stateName = sessionStorage.getItem('stateName')
 
   const triggerText = 'Open form';
-  const twitterHandle = stateTwitters[STATENAME]
+  const twitterHandle = stateTwitters[stateName]
 
   const [singleStateMetaData, setSingleStateMetaData]=useState([])
+
+  // Get saved data from sessionStorage
+  const abbrState = stateAbbr[stateName]
 
   React.useEffect(() => {
         async function getSingleStateMetaData() {
