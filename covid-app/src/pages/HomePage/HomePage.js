@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './HomePageCss.css'
 import { Timeline } from 'react-twitter-widgets'
 import Map from '../../components/Map/Map.js'
 import HomePageChart from '../../components/Charts/HomePageChart.js'
+import {fetchStateCensusPopulations} from './../../API/CensusPopulationAPI'; 
 
 function HomePage(props){
 
@@ -38,13 +39,12 @@ function HomePage(props){
         return text
     })
 
-    React.useEffect(() => {
-        async function getStateCensusPopulations() {
-            const data = await fetchStateCensusPopulations()
-            setStateCensusPopulations(data)
-        }
-        getStateCensusPopulations()
-    })
+
+    const [stateCensusPopulations, setStateCensusPopulations]=useState([])
+    async function getStateCensusPopulations() {
+        const data = await fetchStateCensusPopulations()
+        setStateCensusPopulations(data)
+    }
 
     return(
         <div id="home-container">

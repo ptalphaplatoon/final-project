@@ -14,3 +14,6 @@ const fetchStateCensusPopulations = async() => {
         console.log(error)
     } 
 }
+
+
+export {fetchStateCensusPopulations};
