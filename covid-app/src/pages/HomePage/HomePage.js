@@ -184,7 +184,7 @@ function HomePage(props) {
                   screenName: "CDCgov",
                 }}
                 options={{
-                  height: "800",
+                  height: "1000",
                 }}
               />
             </CardBody>
