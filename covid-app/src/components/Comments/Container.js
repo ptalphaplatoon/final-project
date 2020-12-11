@@ -37,6 +37,7 @@ export class Container extends Component {
           showModal={this.showModal}
           buttonRef={(n) => (this.TriggerButton = n)}
           triggerText={this.props.triggerText}
+          
         />
         {this.state.isShown ? (
           <Modal
@@ -46,6 +47,7 @@ export class Container extends Component {
             closeModal={this.closeModal}
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
+            setStatePostsLength={this.props.setStatePostsLength}
           />
         ) : null}
       </React.Fragment>

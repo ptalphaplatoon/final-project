@@ -1,14 +1,15 @@
-//const BASE_URL = 'http://localhost:8000/covid/';
-const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
+const BASE_URL = 'http://localhost:8000/covid/';
+const USERTOKEN_URL = `http://localhost:8000/token-auth/`
+const CREATUSER_URL = `http://localhost:8000/covid/users/`
+// const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
 
 
-export const postsGetAll = (token) => {
+export const postsGetAll = () => {
   return fetch(`${BASE_URL}posts`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
       "Accept": "application/json",
-      "Authorization": "JWT " + token
     }
   })
     .then((response) => response.json())
@@ -26,6 +27,17 @@ export const getPostsByAuthor = (token, author) => {
     .then((response) => response.json())
 }
 
+//Save data to django
+export const writeData = async (post,token) => {
+  await fetch(`${BASE_URL}posts/`, {
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": "JWT " + token
+    },
+    method: 'POST',
+    body: JSON.stringify(post)
+  })
+}
 
 
 
