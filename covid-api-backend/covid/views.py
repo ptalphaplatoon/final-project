@@ -8,12 +8,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
 from .models import Posts
-from .serializers import PostsSerializer, UserAvatarSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import IsAuthenticated
 
+from .serializers import PostsSerializer, UserAvatarSerializer
+from rest_framework.parsers import MultiPartParser, FormParse
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class PostsViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Posts.objects.all()
     serializer_class = PostsSerializer
 
