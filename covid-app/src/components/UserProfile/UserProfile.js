@@ -1,5 +1,5 @@
 
-import { getPostsByAuthor } from '../api/CovidAppApi'
+import { getPostsByAuthor, postsGetAll } from '../api/CovidAppApi'
 import React, { useState, useEffect } from 'react'
 
 export const UserProfile = (props) => {
@@ -9,20 +9,46 @@ export const UserProfile = (props) => {
   let author = localStorage.getItem('username')
 
 
-  useEffect(() => {
-    getPostsByAuthor(token, author).then(d => setPosts(d))
-  }, [token, author])
+  // useEffect(() => {
+  //   getPostsByAuthor(token, author).then(d => setPosts(d))
+  // }, [token, author])
+
+
+  React.useEffect(() => {
+    async function getPosts() {
+      // await delay(200)
+      setPosts(await postsGetAll())
+    }
+    getPosts()
+
+  }, [])
+
+
+
+  const displayPostsByAuthor = () => {
+    let postData = []
+
+    if (posts) {
+      for (let post in posts) {
+        if (posts[post].user === author) {
+          postData.unshift(
+            posts[post].description,
+            <hr />
+          )
+        }
+      }
+    }
+    if (postData.length < 1) {
+      postData = ['Nothing to show - Be the first to add a comment!']
+    }
+
+    return (postData)
+  }
 
   return (
     <div>
       <h1>All Posts from author: {author}</h1>
-      <ul>
-        {posts && posts.map(item =>
-          <li key={item.id}>
-            <h1>Post Title: {item.title}</h1>
-            <h2>Post Description {item.description}</h2>
-          </li>)}
-      </ul>
+      {displayPostsByAuthor()}
     </div>
   )
 
