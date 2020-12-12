@@ -1,26 +1,28 @@
 import React from "react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-
 import Nav from "./Nav";
 import LoggedInUserBox from "./LoggedInBox";
 
+
 //const BASE_URL = 'http://localhost:8000/';
-const BASE_URL = "https://pt-alpha-final-project.herokuapp.com/";
+const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
 
 class LoginSignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayed_form: "",
-      logged_in: localStorage.getItem("token") ? true : false,
-      username: "",
-      invalid_credentials_warning: false,
+      displayed_form: '',
+      logged_in: localStorage.getItem('token') ? true : false,
+      username: '',
+      avatar: ''
     };
   }
 
   componentDidMount() {
+
     this.setState({ username: localStorage.getItem("username") });
+
   }
 
   handle_login = (e, data) => {
@@ -49,11 +51,13 @@ class LoginSignUp extends React.Component {
         localStorage.setItem("token", token);
         this.setState({
           logged_in: true,
-          displayed_form: "",
-          username: username,
-          invalid_credentials_warning: false,
+          displayed_form: '',
+          username: json.user.username,
+          avatar: json.user.profile_pic 
         });
-        localStorage.setItem("username", json.user.username);
+
+        localStorage.setItem('username', json.user.username)
+        localStorage.setItem('avatar', json.user.profile_pic)
       });
   };
 
@@ -81,6 +85,7 @@ class LoginSignUp extends React.Component {
   handle_logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("avatar");
     this.setState({ logged_in: false, username: "" });
   };
 
@@ -121,7 +126,7 @@ class LoginSignUp extends React.Component {
         />
         {form}
         {this.state.logged_in ? (
-          <LoggedInUserBox username={this.state.username} handleLogout={this.handle_logout}/>
+          <LoggedInUserBox username={this.state.username} userIcon={this.state.avatar} handleLogout={this.handle_logout}/>
         ) : (
           ""
         )}

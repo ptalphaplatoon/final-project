@@ -13,9 +13,10 @@ import {
   DropdownMenu,
 } from "reactstrap";
 
-import userIcon from '../../assets/images/avatars/default.png';
+import defaultUserIcon from '../../assets/images/avatars/default.png';
 
-function LoggedInUserBox({ username, handleLogout }) {
+function LoggedInUserBox({ username, userIcon, handleLogout }) {
+  
   return (
     <div className="app-header" style={{backgroundColor: '#e9ecef'}}>
       <div className="app-header--pane">
@@ -37,7 +38,7 @@ function LoggedInUserBox({ username, handleLogout }) {
               className="p-0 text-left d-flex align-items-center"
             >
               <div className="d-block d-44 rounded-sm overflow-hidden">
-                <img src={userIcon} className="img-fluid" alt="..." />
+                <img src={userIcon || defaultUserIcon} className="img-fluid" alt="..." />
               </div>
               <div className="d-none d-xl-block pl-2">
                 <div className="font-weight-bold">Hello, {username}</div>

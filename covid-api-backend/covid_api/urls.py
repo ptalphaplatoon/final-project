@@ -13,6 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('covid/', include('covid.urls')),
     path('token-auth/', obtain_jwt_token),
+    path("api/auth-token/", obtain_auth_token, name="rest_auth_token"),
     path("api/user-avatar/", UserAvatarUpload.as_view(), name="rest_user_avatar_upload"),
     re_path(r'^health/', include('health_check.urls')),
 ]
