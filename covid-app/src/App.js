@@ -5,7 +5,6 @@ import './App.css'
 
 import StatePage from './components/State_Page/State-Page.js'
 import HomePage from './pages/HomePage/HomePage.js'
-import NavBar from './components/NavBar/NavBar.js'
 
 import Comments from './components/Comments/Comments.js'
 import LoginSignUp from './components/Authentication/LoginSignUp'
