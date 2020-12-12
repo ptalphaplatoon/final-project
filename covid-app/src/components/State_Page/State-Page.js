@@ -22,7 +22,7 @@ function State_Page(props){
 
   const [singleStateMetaData, setSingleStateMetaData]=useState([])
   const [statePosts,setStatePosts] = useState([])
-  const [statePostsLength,setStatePostsLength] = useState(statePosts.length)
+  const [stateChange,setStateChange] = useState(1)
 
   // Get saved data from sessionStorage
   const abbrState = stateAbbr[stateName]
@@ -37,15 +37,21 @@ function State_Page(props){
 
   const statesCovid19HealthWebsite = <a href={singleStateMetaData.covid19Site} target="_blank" rel="noreferrer">Visit State Website</a>
 
+  //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
   // Get StatePosts
   React.useEffect(() => {
     async function getPosts(){
+      await delay(200)
       setStatePosts(await postsGetAll())
-      setStatePostsLength(statePosts.length)
     }
     getPosts()
-  }, [statePostsLength])
-  
+    
+  }, [stateChange])
+  console.log(stateChange)
+  console.log(statePosts)
+
   //read in all comments
   const displayComments =()=>{
     let postData = []
@@ -53,17 +59,24 @@ function State_Page(props){
     if (statePosts){
       for (let post in statePosts){
         if(statePosts[post].title === stateName){
-          postData.push(
+          postData.unshift(
             statePosts[post].description,
             <hr/>
           )
         }
       }
-    }else{
+    }
+    if (postData.length < 1){
       postData = ['Nothing to show - Be the first to add a comment!']
     }
-    console.log(statePostsLength)
+    
       return(postData)
+  }
+
+  const showAddComment = () =>{
+    if (localStorage.token){
+      return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange}/>
+    }
   }
 
   return (
@@ -85,7 +98,7 @@ function State_Page(props){
             </CardBody>
             <div className="card-footer d-flex justify-content-between">
               <div className="a-api_add_feed_button">
-                <Container triggerText={triggerText} setStatePostsLength={setStatePostsLength} />
+                {showAddComment()}
               </div>
             </div>
           </Card>

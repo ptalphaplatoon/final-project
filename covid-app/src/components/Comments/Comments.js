@@ -14,12 +14,17 @@ export const Comments = (props) => {
   const handelSubmit =(e)=>{
     e.preventDefault()
     
+    
     let post = {
       title:sessionStorage.getItem('stateName'),
       description:e.target.textarea1.value,
       author:e.target.author.value
     }
+
+
     writeData(post,userToken)
+    let value = props.stateChange+1
+    props.setStateChange(value)
 
     props.close()
   }
