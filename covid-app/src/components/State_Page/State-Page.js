@@ -5,7 +5,7 @@ import { Timeline } from 'react-twitter-widgets'
 import stateTwitters from '../../data/stateTwitters.json'
 import stateAbbr from '../../data/stateAbbr.json'
 import {fetchSingleStateMetaData} from '../../API/InfectionsAPI'; 
-import { postsGetAll, getPostsByAuthor } from '../api/CovidAppApi.js'
+import { postsGetAll } from '../api/CovidAppApi.js'
 
 import {
   CardBody,
