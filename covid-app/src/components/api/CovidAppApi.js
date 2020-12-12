@@ -44,7 +44,7 @@ export const getCurrentUser = (token) => {
 
 //Save data to django
 export const writeData = async (post,token) => {
-  await fetch(`${BASE_URL}posts/`, {
+  await fetch(`${BASE_URL}covid/posts/`, {
     headers: {
       'Content-Type': 'application/json',
       "Authorization": "JWT " + token
