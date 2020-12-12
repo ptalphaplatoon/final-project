@@ -1,8 +1,7 @@
 #app-container{
   display: grid;
   grid-template-rows: repeat(3,1fr,2fr);
-  grid-template-columns: repeat(33,1fr);
-
+  grid-template-columns: repeat(20,1fr);
 }
 
 /* ----------------------- */
@@ -12,7 +11,6 @@
   grid-row-end: 2;
   grid-column-start: 1;
   grid-column-end: 34;
-  padding-bottom: 2%;
 }
 
 /* ----------------------- */
@@ -22,8 +20,37 @@
   grid-row-end: 4;
   grid-column-start: 1;
   grid-column-end: 34;
-  
+  padding-top: 2%;
 }
 
 /* ----------------------- */
 
+.invalid-credentials-warning{
+  color:red;
+  padding: 5px
+}
+
+/* ----------------------- */
+
+.auth-form{
+  padding: 1.25rem;
+  float: right;
+}
+
+.auth-form label {
+  width: 80px;
+}
+
+.auth-form Button {
+  float: right;
+}
+
+.auth-link {
+  color:#3c44b1;
+}
+
+.auth-text {
+  color: black;
+  margin-top: 4%;
+  float: right;
+}

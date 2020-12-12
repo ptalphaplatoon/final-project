@@ -1,7 +1,7 @@
 
 #home-container{
   display: grid;
-  grid-template-rows: repeat(30,1fr);
+  grid-template-rows: repeat(1,1fr);
   grid-template-columns: repeat(33,1fr);
   min-width: 100%;
   max-height: 100%;
@@ -15,7 +15,6 @@
 /* ------------ */
 
 [class*="b-"]{
-  background-color: lightblue;
   padding: 0%;
 }
 
@@ -23,7 +22,7 @@
   grid-row-start: 1;
   grid-row-end: 2;
   grid-column-start: 2;
-  grid-column-end: 12;
+  grid-column-end: 15;
 }
 
 /* ------------------------- */
@@ -31,33 +30,30 @@
 .b-updated-lable{
   grid-row-start: 1;
   grid-row-end: 2;
-  grid-column-start: 22;
-  grid-column-end: 30;
-}
-
-/* ------------------------- */
-
-.b-info-updater{
-  grid-row-start: 3;
-  grid-row-end: 8;
-  grid-column-start: 18;
+  grid-column-start: 15;
   grid-column-end: 32;
 }
 
 /* ------------------------- */
 
-.b-tweet-label{
-  grid-row-start: 7;
-  grid-row-end: 8;
-  grid-column-start: 5;
-  grid-column-end: 11;
+.b-info-updater{
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 2; 
+  grid-column-end: 32;
+}
+
+.b-info-card{
+  min-width: 225px;
 }
 
 /* ------------------------- */
 
+/* ------------------------- */
+
 .b-tweet-container{
-  grid-row-start: 9;
-  grid-row-end: 29;
+  grid-row-start: 3;
+  grid-row-end: 23;
   grid-column-start: 3;
   grid-column-end: 13;
 }
@@ -65,8 +61,8 @@
 /* ------------------------- */
 
 .b-us-map{
-  grid-row-start: 9;
-  grid-row-end: 29;
+  grid-row-start: 3;
+  grid-row-end: 23;
   grid-column-start: 14;
   grid-column-end: 33;
   background-color: white;
