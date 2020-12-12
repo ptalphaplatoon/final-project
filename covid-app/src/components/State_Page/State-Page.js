@@ -5,6 +5,8 @@ import { Timeline } from 'react-twitter-widgets'
 import stateTwitters from '../../data/stateTwitters.json'
 import stateAbbr from '../../data/stateAbbr.json'
 import {fetchSingleStateMetaData} from '../../API/InfectionsAPI'; 
+import StatePageChart from "../../components/Charts/StatePageChart.js";
+import {fetchHistoricSingleStateValues} from '../../API/InfectionsAPI'; 
 
 import {
   CardBody,
@@ -29,6 +31,17 @@ function State_Page(props){
         setSingleStateMetaData(data)
     } 
     getSingleStateMetaData()
+  },[abbrState])
+
+  const [historicSingleStateValues, setHistoricSingleStateValues]=useState([])
+  React.useEffect(() => {
+    async function getHistoricSingleStateValues() {
+        const data = await fetchHistoricSingleStateValues(abbrState)
+        data.splice(60)
+        data.reverse()
+        setHistoricSingleStateValues(data)
+    }
+    getHistoricSingleStateValues()
   },[abbrState])
 
   const statesCovid19HealthWebsite = <a href={singleStateMetaData.covid19Site} target="_blank" rel="noreferrer">Visit State Website</a>
@@ -79,6 +92,20 @@ function State_Page(props){
             </CardBody>
           </Card>
         </Fragment>
+      </div>
+      <div>
+        <Fragment>
+            <Card className="card-box mb-5 p-3 text-center">
+                <div className="my-3">
+                <h6 className="font-weight-bold font-size-lg mb-1 text-black">
+                    Historic Values Last 60 Days
+                </h6>
+                <div className="state-page-line-chart">
+                    <StatePageChart historicSingleStateValues={historicSingleStateValues} />
+                </div>
+                </div>
+            </Card>
+            </Fragment>
       </div>
     </div>
   );
