@@ -312,7 +312,7 @@ function App(props) {
 
       <div className="nav-bar">
         <LoginSignUp />
-        <NavBar />
+
       </div>
 
       <div className={"body-container"}>

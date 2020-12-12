@@ -154,7 +154,7 @@ function HomePage(props) {
   return (
     <div id="home-container">
       <div className="b-label-title">
-        <div className="app-page-title">
+        <div className="">
           <div className="app-page-title--first">
             <div className="app-page-title--heading">
               <h1>National COVID-19 Information</h1>
