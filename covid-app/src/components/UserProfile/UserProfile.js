@@ -5,8 +5,6 @@ import React, { useState, useEffect } from 'react'
 export const UserProfile = (props) => {
   const [posts, setPosts] = useState(null)
 
-  console.log("user profile compnent is called")
-
   let token = localStorage.getItem('token')
   let author = localStorage.getItem('username')
 
