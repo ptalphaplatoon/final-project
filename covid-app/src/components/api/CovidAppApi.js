@@ -3,7 +3,7 @@ const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
 
 
 export const postsGetAll = () => {
-  return fetch(`${BASE_URL}posts`, {
+  return fetch(`${BASE_URL}covid/posts`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export const postsGetAll = () => {
 }
 
 export const getPostsByAuthor = (token, author) => {
-  return fetch(`${BASE_URL}posts?filter={"where":{"author":"${author}"}}`, {
+  return fetch(`${BASE_URL}covid/posts?filter={"where":{"author":"${author}"}}`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
