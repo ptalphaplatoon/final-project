@@ -46,7 +46,6 @@ class LoginSignUp extends React.Component {
         }
       })
       .then((json) => {
-        const username = json.user.username;
         const token = json.token;
         localStorage.setItem("token", token);
         this.setState({
