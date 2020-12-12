@@ -4,12 +4,13 @@ import Container from '../Comments/Container.js'
 import { Timeline } from 'react-twitter-widgets'
 import stateTwitters from '../../data/stateTwitters.json'
 import stateAbbr from '../../data/stateAbbr.json'
-import {fetchSingleStateMetaData} from '../../API/InfectionsAPI'; 
+import {fetchSingleStateMetaData, fetchCurrentSingleStateValues} from '../../API/InfectionsAPI'; 
 
 import {
   CardBody,
   Card,
 } from 'reactstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function State_Page(props){
   const STATENAME = props.sName
@@ -31,8 +32,110 @@ function State_Page(props){
     getSingleStateMetaData()
   },[abbrState])
 
+  const [currentSingleStateValues, setCurrentSingleStateValues]=useState([])
+
+  React.useEffect(() => {
+      async function getCurrentSingleStateValues() {
+      const data = await fetchCurrentSingleStateValues(abbrState)
+      setCurrentSingleStateValues(data)
+    }
+    getCurrentSingleStateValues()
+  },[abbrState])
+
   const statesCovid19HealthWebsite = <a href={singleStateMetaData.covid19Site} target="_blank" rel="noreferrer">Visit State Website</a>
   
+  const formatNumber = (number) => {
+    var nf = new Intl.NumberFormat();
+    return nf.format(number);
+  };
+
+  console.log('xx', currentSingleStateValues)
+
+  const infoBox = [currentSingleStateValues].map(function (values, index) {
+    return (
+      <div className="d-flex flex-row flex-wrap justify-content-center">
+        <div className="position-relative px-5 py-3">
+          <Card className="card-box bg-premium-dark border-0 text-light mb-5">
+            <CardBody className="b-info-card">
+              <div className="d-flex align-items-start">
+                <div className="font-weight-bold">
+                  <small className="text-white-50 d-block mb-1 text-uppercase">
+                    Positive Cases
+                  </small>
+                  <span className="font-size-xxl mt-1">
+                    {formatNumber(values.positive)}
+                  </span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <FontAwesomeIcon
+                  icon={["fas", "arrow-up"]}
+                  className="text-success mr-1"
+                />
+                <span className="text-success pr-1">
+                  {formatNumber(values.positiveIncrease)}
+                </span>
+                <span className="text-white-50">today</span>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+        <div className="position-relative px-5 py-3">
+          <Card className="card-box bg-midnight-bloom text-light mb-5">
+            <CardBody className="b-info-card">
+              <div className="d-flex align-items-start">
+                <div className="font-weight-bold">
+                  <small className="text-white-50 d-block mb-1 text-uppercase">
+                    Deaths
+                  </small>
+                  <span className="font-size-xxl mt-1">
+                    {formatNumber(values.death)}
+                  </span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <FontAwesomeIcon
+                  icon={["fas", "arrow-up"]}
+                  className="text-success mr-1"
+                />
+                <span className="text-success pr-1">
+                  {formatNumber(values.deathIncrease)}
+                </span>
+                <span className="text-white-50">today</span>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+        <div className="position-relative px-5 py-3">
+          <Card className="card-box bg-vicious-stance text-light mb-5">
+            <CardBody className="b-info-card">
+              <div className="d-flex align-items-start">
+                <div className="font-weight-bold">
+                  <small className="text-white-50 d-block mb-1 text-uppercase">
+                    Total Tests
+                  </small>
+                  <span className="font-size-xxl mt-1">
+                    {formatNumber(values.totalTestResults)}
+                  </span>
+                </div>
+              </div>
+              <div className="mt-3">
+                <FontAwesomeIcon
+                  icon={["fas", "arrow-up"]}
+                  className="text-success mr-1"
+                />
+                <span className="text-success pr-1">
+                  {formatNumber(values.totalTestResultsIncrease)}
+                </span>
+                <span className="text-white-50">today</span>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+    );
+  });
+
   return (
     <div id="StatePage-container">
       <div className="a-api_feed_container">
@@ -55,6 +158,11 @@ function State_Page(props){
               </div>
             </div>
           </Card>
+        </Fragment>
+      </div>
+      <div>
+        <Fragment>
+          <div className="b-info-updater">{infoBox}</div>
         </Fragment>
       </div>
       <div className="a-state_info_container">
