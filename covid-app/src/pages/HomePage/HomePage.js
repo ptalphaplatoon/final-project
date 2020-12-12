@@ -132,7 +132,9 @@ function HomePage(props) {
   });
 
   const lastUpdateBox = props.currentUSValues.map(function (values, index) {
-    return <div key={index}>Last Updated: {formatDate(values.lastModified)}</div>;
+    return (
+      <div key={index}>Last Updated: {formatDate(values.lastModified)}</div>
+    );
   });
 
   const currentStateInfNums = props.currentStateValues.map(function (values) {
@@ -154,14 +156,11 @@ function HomePage(props) {
   return (
     <div id="home-container">
       <div className="b-label-title">
-        <div className="">
-          <div className="app-page-title--first">
-            <div className="app-page-title--heading">
-              <h1>National COVID-19 Information</h1>
-              <div className="app-page-title--description">
-                Traveling soon? Get informed with national and state
-                information.
-              </div>
+        <div className="app-page-title--first">
+          <div className="app-page-title--heading">
+            <h1>National COVID-19 Information</h1>
+            <div className="app-page-title--description">
+              Traveling soon? Get informed with national and state information.
             </div>
           </div>
         </div>
@@ -203,10 +202,10 @@ function HomePage(props) {
                 Zoom and click on a state for more information.
               </p>
               <Map
-                  map={chart}
-                  setSName={setStateName}
-                  currentstateInfNums={currentStateInfNums}
-                />
+                map={chart}
+                setSName={setStateName}
+                currentstateInfNums={currentStateInfNums}
+              />
             </div>
           </Card>
         </Fragment>
@@ -217,8 +216,8 @@ function HomePage(props) {
                 Historic Values
               </h6>
               <div className="home-page-line-chart">
-          <HomePageChart historicUSValues={props.historicUSValues} />
-        </div>
+                <HomePageChart historicUSValues={props.historicUSValues} />
+              </div>
             </div>
           </Card>
         </Fragment>
