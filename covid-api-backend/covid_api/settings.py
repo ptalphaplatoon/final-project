@@ -132,6 +132,7 @@ USE_TZ = True
 
 AUTH_USER_MODEL = "covid.UserProfile" 
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "covid", "site_static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "covid", "static")
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "covid", "images")
