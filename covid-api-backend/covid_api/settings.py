@@ -9,12 +9,14 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-# import django_heroku
+import django_heroku
 from pathlib import Path
 import datetime
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'covid',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'health_check',                             # required
     'health_check.db',                          # stock Django health checkers
@@ -127,18 +130,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+AUTH_USER_MODEL = "covid.UserProfile" 
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "covid", "site_static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "covid", "static")
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "covid", "images")
+MEDIA_URL = '/images/'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+
     ),
 }
+
+
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -147,4 +161,4 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=3),
 }
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())

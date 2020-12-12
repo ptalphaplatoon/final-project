@@ -25,6 +25,23 @@ export const getPostsByAuthor = (token, author) => {
     .then((response) => response.json())
 }
 
+export const getCurrentUser = (token) => {
+  return fetch(`${BASE_URL}covid/current_user/`, {
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json',
+      "Accept": "application/json",
+      "Authorization": "JWT " + token
+    }
+  })
+    .then((response) => {
+      console.log(response.json)
+      return response.json
+   
+    })
+    
+}
+
 //Save data to django
 export const writeData = async (post,token) => {
   await fetch(`${BASE_URL}posts/`, {
@@ -36,8 +53,4 @@ export const writeData = async (post,token) => {
     body: JSON.stringify(post)
   })
 }
-
-
-
-
 

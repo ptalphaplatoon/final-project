@@ -9,7 +9,6 @@ export const Comments = (props) => {
   const userName = localStorage.getItem('username')
 
 
-
   // Will handle the submission of author and comments
   const handelSubmit =(e)=>{
     e.preventDefault()
