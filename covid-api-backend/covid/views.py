@@ -9,8 +9,10 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
 from .models import Posts
 from .serializers import PostsSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class PostsViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Posts.objects.all()
     serializer_class = PostsSerializer
 
