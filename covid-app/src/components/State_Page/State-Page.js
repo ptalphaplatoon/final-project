@@ -4,11 +4,9 @@ import Container from '../Comments/Container.js'
 import { Timeline } from 'react-twitter-widgets'
 import stateTwitters from '../../data/stateTwitters.json'
 import stateAbbr from '../../data/stateAbbr.json'
-import {fetchSingleStateMetaData} from '../../API/InfectionsAPI'; 
+import {fetchSingleStateMetaData, fetchHistoricSingleStateValues, fetchCurrentSingleStateValues} from '../../API/InfectionsAPI'; 
 import StatePageChart from "../../components/Charts/StatePageChart.js";
 import { postsGetAll } from '../api/CovidAppApi.js'
-import {fetchHistoricSingleStateValues} from '../../API/InfectionsAPI'; 
-
 
 import {
   CardBody,
