@@ -1,11 +1,11 @@
 import React, {Fragment, useState} from 'react';
-import './State-PageCss.css'
+import './StatePageCss.css'
 import Container from '../Comments/Container.js'
 import { Timeline } from 'react-twitter-widgets'
 import stateTwitters from '../../data/stateTwitters.json'
 import stateAbbr from '../../data/stateAbbr.json'
 import {fetchSingleStateMetaData, fetchHistoricSingleStateValues, fetchCurrentSingleStateValues} from '../../API/InfectionsAPI'; 
-import StatePageChart from "../../components/Charts/StatePageChart.js";
+import StatePageChart from "../Charts/StatePageChart.js";
 import { postsGetAll } from '../api/CovidAppApi.js'
 
 import {
@@ -14,7 +14,10 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function State_Page(props){
+function StatePage(props){
+  //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
   // const STATENAME = props.sName
   const stateName = sessionStorage.getItem('stateName')
   
@@ -25,7 +28,7 @@ function State_Page(props){
   const [singleStateMetaData, setSingleStateMetaData]=useState([])
   const [statePosts,setStatePosts] = useState([])
   const [stateChange,setStateChange] = useState(1)
-
+  
   // Get saved data from sessionStorage
   const abbrState = stateAbbr[stateName]
 
@@ -46,6 +49,7 @@ function State_Page(props){
         setHistoricSingleStateValues(data)
     }
     getHistoricSingleStateValues()
+})
     
   const [currentSingleStateValues, setCurrentSingleStateValues]=useState([])
 
@@ -149,9 +153,6 @@ function State_Page(props){
     );
   });
 
-  //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-
   // Get StatePosts
   React.useEffect(() => {
     async function getPosts(){
@@ -161,8 +162,6 @@ function State_Page(props){
     getPosts()
     
   }, [stateChange])
-  console.log(stateChange)
-  console.log(statePosts)
 
   //read in all comments
   const displayComments =()=>{
@@ -262,4 +261,5 @@ function State_Page(props){
   );
 }
 
-export default State_Page
+
+export default StatePage
