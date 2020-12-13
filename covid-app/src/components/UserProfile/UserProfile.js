@@ -1,11 +1,9 @@
 
-import { getPostsByAuthor, postsGetAll } from '../api/CovidAppApi'
-import React, { useState, useEffect } from 'react'
+import { postsGetAll } from '../api/CovidAppApi'
+import React, { useState } from 'react'
 
 export const UserProfile = (props) => {
   const [posts, setPosts] = useState(null)
-
-  let token = localStorage.getItem('token')
   let author = localStorage.getItem('username')
 
 
@@ -33,7 +31,7 @@ export const UserProfile = (props) => {
         if (posts[post].user === author) {
           postData.unshift(
             posts[post].description,
-            <hr />
+            <hr key={posts[post].id} />
           )
         }
       }
@@ -47,7 +45,7 @@ export const UserProfile = (props) => {
 
   return (
     <div>
-      <h1>All Posts from author: {author}</h1>
+      <h1>All comments from author: {author}</h1>
       {displayPostsByAuthor()}
     </div>
   )
