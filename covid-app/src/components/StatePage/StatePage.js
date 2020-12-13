@@ -44,12 +44,13 @@ function StatePage(props){
   React.useEffect(() => {
     async function getHistoricSingleStateValues() {
         const data = await fetchHistoricSingleStateValues(abbrState)
+        await delay(100)
         data.splice(60)
         data.reverse()
         setHistoricSingleStateValues(data)
     }
     getHistoricSingleStateValues()
-})
+    },[abbrState])
     
   const [currentSingleStateValues, setCurrentSingleStateValues]=useState([])
 
@@ -60,6 +61,7 @@ function StatePage(props){
     }
     getCurrentSingleStateValues()
   },[abbrState])
+
 
   const statesCovid19HealthWebsite = <a href={singleStateMetaData.covid19Site} target="_blank" rel="noreferrer">Visit State Website</a>
   
