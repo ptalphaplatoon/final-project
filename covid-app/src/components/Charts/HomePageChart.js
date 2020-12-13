@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -6,6 +6,8 @@ import './HomePageChartCSS.css'
 
 function HomePageChart (props){
 
+    
+useEffect(()=>{
     //https://www.amcharts.com/docs/v4/tutorials/chart-was-not-disposed/
     am4core.options.autoDispose = true;
 
@@ -107,6 +109,7 @@ function HomePageChart (props){
 
         // Add cursor
         chart.cursor = new am4charts.XYCursor();
+},[props])
 
     return (
         <div id="linechartdiv"></div>

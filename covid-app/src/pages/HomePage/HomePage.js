@@ -84,7 +84,7 @@ function HomePage(props) {
                     Hospitalized
                   </small>
                   <span className="font-size-xxl mt-1">
-                    {formatNumber(values.hospitalizedCurrently)}
+                    {formatNumber(values.hospitalizedCumulative)}
                   </span>
                 </div>
               </div>

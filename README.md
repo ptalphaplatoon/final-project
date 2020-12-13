@@ -1,5 +1,5 @@
 ## Django API
-Backend command to start server:
+Backend command to start API:
 ```console
 $ cd covid_api
 $ python -m venv venv

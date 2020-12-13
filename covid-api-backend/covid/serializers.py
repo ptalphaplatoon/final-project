@@ -1,7 +1,11 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
-from .models import Posts
+from django.contrib.auth import get_user_model
+from .models import Posts, UserProfile
+from rest_framework.serializers import ModelSerializer
+
+User = get_user_model()
 
 
 
@@ -10,13 +14,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username', 'profile_pic')
 
 class PostsSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Posts
-        fields = ['author_id', 'id','title', 'description', 'author']
+        fields = ['author_id', 'id','title', 'description', 'author', 'user']
     
     # def save(self, *args, **kwargs):
     #     print("args", args)
@@ -49,4 +53,14 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('token', 'username', 'password')
+        fields = ('token', 'username', 'password', 'profile_pic')
+
+class UserAvatarSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["avatar"]
+
+    def save(self, *args, **kwargs):
+        if self.instance.avatar:
+            self.instance.avatar.delete()
+        return super().save(*args, **kwargs)

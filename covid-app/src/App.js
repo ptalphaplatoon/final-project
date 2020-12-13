@@ -12,6 +12,8 @@ import UserProfile from './components/UserProfile/UserProfile.js'
 
 import {fetchCurrentUSValues, fetchCurrentStateValues, fetchHistoricUSValues} from './API/InfectionsAPI'; 
 
+import { postsGetAll } from './components/api/CovidAppApi.js'
+
 import './assets/base.scss'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -266,6 +268,7 @@ function App(props) {
   const [currentUSValues, setCurrentUSValues]=useState([])
   const [currentStateValues, setCurrentStateValues]=useState([])
   const [historicUSValues, setHistoricUSValues]=useState([])
+  const [allPost,setAllPost] = useState([])
 
 
   React.useEffect(() => {
@@ -294,6 +297,13 @@ function App(props) {
       getCurrentStateValues()
   },[])
 
+  React.useEffect(()=>{
+    async function getPosts(){ 
+      setAllPost( await postsGetAll())
+    }
+    getPosts()
+  },[])
+  
   const renderStatePage = (props) => {
     return (
       <StatePage sName={stateName} />
@@ -303,6 +313,12 @@ function App(props) {
   const renderHomePage =(props)=>{
     return(
       <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} historicUSValues={historicUSValues}/>
+    )
+  }
+
+  const renderComments = (props) =>{
+    return(
+      <Comments postsFromAppState={allPost}/>
     )
   }
 
@@ -318,7 +334,7 @@ function App(props) {
         <Switch>
           <Route exact path="/" render={renderHomePage} />
           <Route exact path="/state-page" render={renderStatePage} />
-          <Route exact path="/add-comments" component={Comments} />
+          <Route exact path="/add-comments" render={renderComments} />
           <Route exact path="/user-profile" component={UserProfile} />
         </Switch>
       </div>
