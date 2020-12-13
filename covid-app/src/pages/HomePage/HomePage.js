@@ -1,11 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "./HomePageCss.css";
 import { Timeline } from "react-twitter-widgets";
 import Map from "../../components/Map/Map.js";
 import HomePageChart from "../../components/Charts/HomePageChart.js";
-
+import stateAbbr from '../../data/stateAbbr.json'
 import { CardBody, Card } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {fetchStateCensusPopulations} from './../../API/CensusDataAPI';
 
 function HomePage(props) {
   // Name passed from the State clicked on
@@ -136,6 +137,52 @@ function HomePage(props) {
       <div key={index}>Last Updated: {formatDate(values.lastModified)}</div>
     );
   });
+
+  const [stateCensusPopulations, setStateCensusPopulations]=useState([])
+
+  useEffect(()=>{
+    async function getStateCensusPopulations() {
+        const data = await fetchStateCensusPopulations()
+        setStateCensusPopulations(data)
+    }
+    getStateCensusPopulations()
+  },[])
+
+  const perCapita = () => {
+    
+    let arrStateValues = []
+
+    for(let index in stateCensusPopulations) {
+        // console.log('state:', stateCensusPopulations[index])
+        for(let stateValue in stateAbbr) {
+            if(stateCensusPopulations[index][0] === stateValue) {
+                arrStateValues.push({
+                    statAbbr: "US-" + stateAbbr[stateValue],
+                    value: stateCensusPopulations[index][1]
+                })
+            }
+             
+        }
+        
+    }
+    console.log('xx:',arrStateValues)
+  }
+  perCapita()
+//   stateAbbr[stateValue]
+  const stateInfNumsByPop = props.currentStateValues.map(function (values) {
+    
+
+    // const statePopulation = stateCensusPopulations.POP
+
+    // console.log('statePops', statePopulation)
+
+    var text = {
+        id: "US-" + values.state,
+        value: values.positive // / statePopulation
+    }
+    // console.log('text', text);
+    return text
+  })
 
   const currentStateInfNums = props.currentStateValues.map(function (values) {
     var text = {
