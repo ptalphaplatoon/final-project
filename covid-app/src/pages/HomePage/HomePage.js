@@ -244,7 +244,7 @@ function HomePage(props) {
           <Card className="card-box mb-5 p-3 text-center">
             <div className="my-3">
               <h6 className="font-weight-bold font-size-lg mb-1 text-black">
-                Historic Values
+                Historic Values Last 60 Days
               </h6>
               <div className="home-page-line-chart">
                 <HomePageChart historicUSValues={props.historicUSValues} />

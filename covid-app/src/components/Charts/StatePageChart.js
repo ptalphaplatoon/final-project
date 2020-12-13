@@ -1,22 +1,20 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import './HomePageChartCSS.css'
+import './StatePageChartCSS.css'
 
-function HomePageChart (props){
+function StatePageChart (props){
 
-    
-useEffect(()=>{
     //https://www.amcharts.com/docs/v4/tutorials/chart-was-not-disposed/
     am4core.options.autoDispose = true;
 
-    const historicUSChartData = props.historicUSValues.map(function (values) {
+    console.log(props.historicSingleStateValues)
+    const historicSingleStateChartData = props.historicSingleStateValues.map(function (values) {
         var newDate = new Date(values.dateChecked)
         var obj = {"date": newDate,
                     "Cases": values.positiveIncrease, 
                     "Deaths": values.deathIncrease,
-                    "Hospitalized": values.hospitalizedIncrease
                     }
         return obj
     })
@@ -32,7 +30,7 @@ useEffect(()=>{
         chart.colors.step = 2;
 
         // Add data
-        chart.data = historicUSChartData
+        chart.data = historicSingleStateChartData
 
         // Create axes
         let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -109,10 +107,9 @@ useEffect(()=>{
 
         // Add cursor
         chart.cursor = new am4charts.XYCursor();
-},[props])
 
     return (
         <div id="linechartdiv"></div>
     )
 }
-export default HomePageChart;
+export default StatePageChart;

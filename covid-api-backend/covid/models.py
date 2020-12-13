@@ -29,6 +29,7 @@ class Posts(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name ='user_post',on_delete=models.CASCADE, null= False )
+    user =  models.CharField(max_length=250)
     
 
     def __str__(self):

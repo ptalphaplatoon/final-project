@@ -15,10 +15,10 @@
 /* Group Change */
 /* ------------ */
 
-[class*="a-"]{
+/* [class*="a-"]{ */
   /* background-color: lightblue; */
 
-}
+/* } */
 
 /* ------------------------------------- */
 .a-api_feed_title{
@@ -61,10 +61,42 @@
 }
 /* ------------------------------------- */
 
-
-
-
-
-
-
-
+  /* ------------------------------- */
+  
+  /* ------------ */
+  /*      b-      */
+  /* Group Change */
+  /* ------------ */
+  
+  [class*="b-"]{
+    padding: 0%;
+  }
+  
+  .b-label-title{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 15;
+  }
+  
+  /* ------------------------- */
+  
+  .b-updated-lable{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 15;
+    grid-column-end: 32;
+  }
+  
+  /* ------------------------- */
+  
+  .b-info-updater{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2; 
+    grid-column-end: 32;
+  }
+  
+  .b-info-card{
+    min-width: 225px;
+  }
