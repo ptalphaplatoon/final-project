@@ -148,8 +148,7 @@ function HomePage(props) {
     getStateCensusPopulations()
   },[])
 
-  const perCapita = () => {
-    
+  const perCapita = () => { 
     let arrStateValues = []
 
     for(let index in stateCensusPopulations) {
@@ -161,30 +160,15 @@ function HomePage(props) {
                     value: stateCensusPopulations[index][1]
                 })
             }
-             
         }
-        
     }
     console.log('xx:',arrStateValues)
+    return arrStateValues
   }
-  perCapita()
-//   stateAbbr[stateValue]
-  const stateInfNumsByPop = props.currentStateValues.map(function (values) {
-    
-
-    // const statePopulation = stateCensusPopulations.POP
-
-    // console.log('statePops', statePopulation)
-
-    var text = {
-        id: "US-" + values.state,
-        value: values.positive // / statePopulation
-    }
-    // console.log('text', text);
-    return text
-  })
 
   const currentStateInfNums = props.currentStateValues.map(function (values) {
+    console.log('pc', perCapita)
+
     var text = {
       id: "US-" + values.state,
       value: values.positive,
