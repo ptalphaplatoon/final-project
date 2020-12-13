@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css'
 
-import StatePage from './components/State_Page/State-Page.js'
+import StatePage from './components/StatePage/StatePage.js'
 import HomePage from './pages/HomePage/HomePage.js'
 
 import Comments from './components/Comments/Comments.js'
@@ -304,6 +304,8 @@ function App(props) {
     getPosts()
   },[])
   
+
+
   const renderStatePage = (props) => {
     return (
       <StatePage sName={stateName} />

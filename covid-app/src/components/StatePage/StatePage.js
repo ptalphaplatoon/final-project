@@ -1,11 +1,11 @@
 import React, {Fragment, useState} from 'react';
-import './State-PageCss.css'
+import './StatePageCss.css'
 import Container from '../Comments/Container.js'
 import { Timeline } from 'react-twitter-widgets'
 import stateTwitters from '../../data/stateTwitters.json'
 import stateAbbr from '../../data/stateAbbr.json'
-
-import {fetchSingleStateMetaData, fetchCurrentSingleStateValues} from '../../API/InfectionsAPI'; 
+import {fetchSingleStateMetaData, fetchHistoricSingleStateValues, fetchCurrentSingleStateValues} from '../../API/InfectionsAPI'; 
+import StatePageChart from "../Charts/StatePageChart.js";
 import { postsGetAll } from '../api/CovidAppApi.js'
 
 import {
@@ -14,7 +14,10 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function State_Page(props){
+function StatePage(props){
+  //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
   // const STATENAME = props.sName
   const stateName = sessionStorage.getItem('stateName')
   
@@ -25,7 +28,7 @@ function State_Page(props){
   const [singleStateMetaData, setSingleStateMetaData]=useState([])
   const [statePosts,setStatePosts] = useState([])
   const [stateChange,setStateChange] = useState(1)
-
+  
   // Get saved data from sessionStorage
   const abbrState = stateAbbr[stateName]
 
@@ -37,6 +40,18 @@ function State_Page(props){
     getSingleStateMetaData()
   },[abbrState])
 
+  const [historicSingleStateValues, setHistoricSingleStateValues]=useState([])
+  React.useEffect(() => {
+    async function getHistoricSingleStateValues() {
+        const data = await fetchHistoricSingleStateValues(abbrState)
+        await delay(100)
+        data.splice(60)
+        data.reverse()
+        setHistoricSingleStateValues(data)
+    }
+    getHistoricSingleStateValues()
+    },[abbrState])
+    
   const [currentSingleStateValues, setCurrentSingleStateValues]=useState([])
 
   React.useEffect(() => {
@@ -46,6 +61,7 @@ function State_Page(props){
     }
     getCurrentSingleStateValues()
   },[abbrState])
+
 
   const statesCovid19HealthWebsite = <a href={singleStateMetaData.covid19Site} target="_blank" rel="noreferrer">Visit State Website</a>
   
@@ -139,9 +155,6 @@ function State_Page(props){
     );
   });
 
-  //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-
   // Get StatePosts
   React.useEffect(() => {
     async function getPosts(){
@@ -151,8 +164,6 @@ function State_Page(props){
     getPosts()
     
   }, [stateChange])
-  console.log(stateChange)
-  console.log(statePosts)
 
   //read in all comments
   const displayComments =()=>{
@@ -234,8 +245,23 @@ function State_Page(props){
           </Card>
         </Fragment>
       </div>
+      <div>
+        <Fragment>
+            <Card className="card-box mb-5 p-3 text-center">
+                <div className="my-3">
+                <h6 className="font-weight-bold font-size-lg mb-1 text-black">
+                    Historic Values Last 60 Days
+                </h6>
+                <div className="state-page-line-chart">
+                    <StatePageChart historicSingleStateValues={historicSingleStateValues} />
+                </div>
+                </div>
+            </Card>
+            </Fragment>
+      </div>
     </div>
   );
 }
 
-export default State_Page
+
+export default StatePage
