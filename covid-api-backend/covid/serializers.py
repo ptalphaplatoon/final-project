@@ -20,7 +20,7 @@ class PostsSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Posts
-        fields = ['author_id', 'id','title', 'description', 'author']
+        fields = ['author_id', 'id','title', 'description', 'author', 'user']
     
     # def save(self, *args, **kwargs):
     #     print("args", args)
