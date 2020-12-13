@@ -3,7 +3,7 @@ const BASE_URL = 'http://localhost:8000/covid/';
 
 
 export const postsGetAll = () => {
-  return fetch(`${BASE_URL}covid/posts`, {
+  return fetch(`${BASE_URL}posts/`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -13,8 +13,8 @@ export const postsGetAll = () => {
     .then((response) => response.json())
 }
 
-export const getPostsByAuthor = (token, author) => {
-  return fetch(`${BASE_URL}covid/posts?filter={"where":{"author":"${author}"}}`, {
+export const editPost = (token, postID) => {
+  return fetch(`${BASE_URL}posts/${postID}/`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -25,8 +25,31 @@ export const getPostsByAuthor = (token, author) => {
     .then((response) => response.json())
 }
 
+//Delete Comment
+export const deleteCommentByID = async (token,postID) => {
+  await fetch(`${BASE_URL}posts/${postID}/`, {
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": "JWT " + token
+    },
+    method: 'DELETE'
+  })
+}
+
+//Update Comment
+export const patchPost = async (post,token,postID) => {
+  await fetch(`${BASE_URL}posts/${postID}/`, {
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": "JWT " + token
+    },
+    method: 'PATCH',
+    body: JSON.stringify(post)
+  })
+}
+
 export const getCurrentUser = (token) => {
-  return fetch(`${BASE_URL}covid/current_user/`, {
+  return fetch(`${BASE_URL}current_user/`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -37,14 +60,13 @@ export const getCurrentUser = (token) => {
     .then((response) => {
       console.log(response.json)
       return response.json
-   
     })
     
 }
 
 //Save data to django
 export const writeData = async (post,token) => {
-  await fetch(`${BASE_URL}covid/posts/`, {
+  await fetch(`${BASE_URL}posts/`, { //add covid back to the url
     headers: {
       'Content-Type': 'application/json',
       "Authorization": "JWT " + token

@@ -49,6 +49,8 @@ export class Container extends Component {
             onClickOutside={this.onClickOutside}
             setStateChange={this.props.setStateChange}
             stateChange={this.props.stateChange}
+            post={this.props.editPost}
+            destination = {this.props.destination}
           />
         ) : null}
       </React.Fragment>

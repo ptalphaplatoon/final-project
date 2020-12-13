@@ -177,7 +177,7 @@ function State_Page(props){
 
   const showAddComment = () =>{
     if (localStorage.token){
-      return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange}/>
+      return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange} destination='statePage'/>
     }
   }
 
