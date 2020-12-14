@@ -139,50 +139,84 @@ function HomePage(props) {
   });
 
   const [stateCensusPopulations, setStateCensusPopulations]=useState([])
-
   useEffect(()=>{
     async function getStateCensusPopulations() {
         const data = await fetchStateCensusPopulations()
         setStateCensusPopulations(data)
+        console.log(data)
     }
     getStateCensusPopulations()
   },[])
 
-  const perCapita = () => { 
-    let arrStateValues = []
+  // XXXXXXXXXXX
 
+  const perCapita = () => { 
+    let arrStateVals = []
     for(let index in stateCensusPopulations) {
-        // console.log('state:', stateCensusPopulations[index])
         for(let stateValue in stateAbbr) {
             if(stateCensusPopulations[index][0] === stateValue) {
-                arrStateValues.push({
-                    statAbbr: "US-" + stateAbbr[stateValue],
-                    value: stateCensusPopulations[index][1]
+                arrStateVals.push({
+                    stateAbbr: stateAbbr[stateValue],
+                    value: stateCensusPopulations[index][1] / 100000
                 })
             }
         }
     }
-    console.log('xx:',arrStateValues)
-    return arrStateValues
+    console.log(arrStateVals)
+    return arrStateVals
   }
 
-  const currentStateInfNums = props.currentStateValues.map(function (values) {
-    console.log('pc', perCapita)
+  const perCapitaVals = perCapita()
 
-    var text = {
-      id: "US-" + values.state,
-      value: values.positive,
-      deaths: values.death,
-      hospitalizedCurrently: values.hospitalizedCurrently,
-      hospitalizedCumulative: values.hospitalizedCumulative,
-      totalTests: values.totalTestResults,
-      positiveIncrease: values.positiveIncrease,
-      deathIncrease: values.deathIncrease,
-      hospitalizedIncrease: values.hospitalizedIncrease,
-      totalTestResultsIncrease: values.totalTestResultsIncrease,
-    };
-    return text;
-  });
+  const currentStateInfNumsNEW = perCapitaVals.map(function(item) {
+    
+    for(let index in props.currentStateValues){
+        let csv = props.currentStateValues[index]
+        let currentState = csv.state
+
+      if (currentState === item.stateAbbr) {
+        // let casesBy100k = parseFloat(csv.positive) / parseFloat(item.value)
+        let valueBy100K = parseFloat(csv.positive) / parseFloat(item.value)
+        let deathsBy100K = parseFloat(csv.death) / parseFloat(item.value)
+        let hospitalizedCurrentlyBy100K = parseFloat(csv.hospitalizedCurrently) / parseFloat(item.value)
+        let totalTestsBy100K = parseFloat(csv.totalTestResults) / parseFloat(item.value)
+
+        var text = {
+            id: "US-" + csv.state,
+            value: valueBy100K,
+            deaths: deathsBy100K,
+            hospitalizedCurrently: hospitalizedCurrentlyBy100K,
+            totalTests: totalTestsBy100K,
+            positiveIncrease: csv.positiveIncrease,
+            deathIncrease: csv.deathIncrease,
+            hospitalizedIncrease: csv.hospitalizedIncrease,
+            totalTestResultsIncrease: csv.totalTestResultsIncrease,
+          };
+      }
+    }
+    console.log('text', text)
+    return text
+  })
+
+console.log(currentStateInfNumsNEW)
+
+  // XXXXXXXXXXXXXX
+
+//   const currentStateInfNums = props.currentStateValues.map(function (values) {
+//     var text = {
+//       id: "US-" + values.state,
+//       value: values.positive,
+//       deaths: values.death,
+//       hospitalizedCurrently: values.hospitalizedCurrently,
+//       hospitalizedCumulative: values.hospitalizedCumulative,
+//       totalTests: values.totalTestResults,
+//       positiveIncrease: values.positiveIncrease,
+//       deathIncrease: values.deathIncrease,
+//       hospitalizedIncrease: values.hospitalizedIncrease,
+//       totalTestResultsIncrease: values.totalTestResultsIncrease,
+//     };
+//     return text;
+//   });
 
   return (
     <div id="home-container">
@@ -235,7 +269,7 @@ function HomePage(props) {
               <Map
                 map={chart}
                 setSName={setStateName}
-                currentstateInfNums={currentStateInfNums}
+                currentStateInfNumsNEW={currentStateInfNumsNEW}
               />
             </div>
           </Card>

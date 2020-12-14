@@ -10,7 +10,7 @@ import Comments from './components/Comments/Comments.js'
 import LoginSignUp from './components/Authentication/LoginSignUp'
 import UserProfile from './components/UserProfile/UserProfile.js'
 
-import {fetchCurrentUSValues, fetchCurrentStateValues, fetchHistoricUSValues} from './API/InfectionsAPI'; 
+import {fetchCurrentUSValues, fetchCurrentStateValues, fetchHistoricUSValues, fetchHistoricStateValues} from './API/InfectionsAPI'; 
 
 import { postsGetAll } from './components/api/CovidAppApi.js'
 
@@ -268,6 +268,7 @@ function App(props) {
   const [currentUSValues, setCurrentUSValues]=useState([])
   const [currentStateValues, setCurrentStateValues]=useState([])
   const [historicUSValues, setHistoricUSValues]=useState([])
+  const [historicStateValues, setHistoricStateValues]=useState([])
   const [allPost,setAllPost] = useState([])
 
 
@@ -288,6 +289,15 @@ function App(props) {
       }
       getHistoricUSValues()
   },[])
+
+  React.useEffect(() => {
+    async function getHistoricStateValues() {
+        const data = await fetchHistoricStateValues()
+        data.splice(7)
+        setHistoricStateValues(data)
+    }
+    getHistoricStateValues()
+},[])
 
   React.useEffect(() => {
       async function getCurrentStateValues() {
