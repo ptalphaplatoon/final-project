@@ -1,9 +1,6 @@
 
 import { postsGetAll } from '../api/CovidAppApi'
 import React, { useState } from 'react'
-// import Container from '../Comments/Container.js'
-// import DeletePost from './DeletePost.js'
-// import {Table} from 'reactstrap'
 import UserComment from './UserComments.js'
 import './UserProfile.css'
 

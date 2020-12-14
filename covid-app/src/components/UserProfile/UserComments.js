@@ -4,8 +4,6 @@ import Container from '../Comments/Container.js'
 import DeletePost from './DeletePost.js'
 
 function UserComments (props){
-  // const title = props.title
-  // const description = props.description
   const {title, description, postID, setUpdateState, updateState, triggerText, token} = props
   
   return(

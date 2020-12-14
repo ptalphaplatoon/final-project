@@ -36,7 +36,6 @@ export const Comments = (props) => {
 
     let post = {
       title : postTitle,
-      // title: sessionStorage.getItem('stateName'),
       description: e.target.textarea1.value,
       author: e.target.author.value,
       user: userName

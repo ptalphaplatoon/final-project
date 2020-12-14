@@ -15,7 +15,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function State_Page(props){
-  // const STATENAME = props.sName
+  
   const stateName = sessionStorage.getItem('stateName')
   
 

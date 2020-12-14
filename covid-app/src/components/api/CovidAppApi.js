@@ -1,9 +1,9 @@
-const BASE_URL = 'http://localhost:8000/covid/';
-// const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
+// const BASE_URL = 'http://localhost:8000/covid/';
+const BASE_URL = 'https://pt-alpha-final-project.herokuapp.com/';
 
 
 export const postsGetAll = () => {
-  return fetch(`${BASE_URL}posts/`, {
+  return fetch(`${BASE_URL}covid/posts/`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export const postsGetAll = () => {
 }
 
 export const editPost = (token, postID) => {
-  return fetch(`${BASE_URL}posts/${postID}/`, {
+  return fetch(`${BASE_URL}covid/posts/${postID}/`, {
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const editPost = (token, postID) => {
 
 //Delete Comment
 export const deleteCommentByID = async (token,postID) => {
-  await fetch(`${BASE_URL}posts/${postID}/`, {
+  await fetch(`${BASE_URL}covid/posts/${postID}/`, {
     headers: {
       'Content-Type': 'application/json',
       "Authorization": "JWT " + token
@@ -38,7 +38,7 @@ export const deleteCommentByID = async (token,postID) => {
 
 //Update Comment
 export const patchPost = async (post,token,postID) => {
-  await fetch(`${BASE_URL}posts/${postID}/`, {
+  await fetch(`${BASE_URL}covid/posts/${postID}/`, {
     headers: {
       'Content-Type': 'application/json',
       "Authorization": "JWT " + token
@@ -66,7 +66,7 @@ export const getCurrentUser = (token) => {
 
 //Save data to django
 export const writeData = async (post,token) => {
-  await fetch(`${BASE_URL}posts/`, { //add covid back to the url
+  await fetch(`${BASE_URL}covid/posts/`, { 
     headers: {
       'Content-Type': 'application/json',
       "Authorization": "JWT " + token
