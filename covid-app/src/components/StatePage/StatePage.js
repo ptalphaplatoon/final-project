@@ -189,7 +189,7 @@ function StatePage(props){
   // Gives us a "add comment" button if the user is logged in
   const showAddComment = () =>{
     if (localStorage.token){
-      return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange}/>
+      return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange} destination='statePage'/>
     }
   }
 
