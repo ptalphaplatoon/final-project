@@ -1,10 +1,18 @@
+.userprofile-background{
+  background-color: whitesmoke;
+}
 .userprofile{
   display: flex;
-margin-left: 30%;
+  margin-left: 30%;
+  
 }
-.userprofile-table{
+/* .userprofile-table{
   display: flex;
 padding-left: 25%;
 padding-right: 25%;
+} */
+.userprofile-nocomments{
+  display: flex;
+  justify-content: center;
 
 }

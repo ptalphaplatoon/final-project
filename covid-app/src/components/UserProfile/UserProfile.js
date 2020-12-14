@@ -1,9 +1,10 @@
 
 import { postsGetAll } from '../api/CovidAppApi'
 import React, { useState } from 'react'
-import Container from '../Comments/Container.js'
-import DeletePost from './DeletePost.js'
-import {Table} from 'reactstrap'
+// import Container from '../Comments/Container.js'
+// import DeletePost from './DeletePost.js'
+// import {Table} from 'reactstrap'
+import UserComment from './UserComments.js'
 import './UserProfile.css'
 
 export const UserProfile = (props) => {
@@ -34,33 +35,20 @@ export const UserProfile = (props) => {
       for (let post in posts) {
         if (posts[post].user === author) {
           postData.unshift(
-            
-              <Table className="userprofile-table">
-                <thead>
-                  <tr>
-                    <th><h3>{posts[post].title}</h3></th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                  <tr>
-                    <td>{posts[post].description}</td>
-                  </tr>
-                  <tr>
-                    <th>
-                      <Container triggerText={triggerText} editPost={posts[post].id} setStateChange={setUpdateState} stateChange={updateState}destination='userProfile'/>
-                      <DeletePost userToken={token} deletePostID={posts[post].id} setStateChange={setUpdateState} stateChange={updateState}/>
-                    </th>
-                  </tr>
-                </tbody>
-              </Table>
-
+            <UserComment title={posts[post].title} description={posts[post].description} postID={posts[post].id} token={token} triggerText={triggerText} setUpdateState={setUpdateState} updateState={updateState}/>
+              
           )
         }
       }
     }
     if (postData.length < 1) {
-      postData = ['All comments you post will show here. You currently have no comments.']
+      
+        postData = [
+          <div className="userprofile-nocomments">
+            <h4>All comments you post will show here. You currently have no comments.</h4>
+          </div>
+            ]
+      
     }
 
 
@@ -69,7 +57,7 @@ export const UserProfile = (props) => {
     }
 
   return (
-    <div>
+    <div className="userprofile-background">
       <h1 className="userprofile">All comments from author: {author}</h1>
       
         {displayPostsByAuthor()}
