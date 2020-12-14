@@ -26,7 +26,7 @@ function Nav(props) {
               style={{fontSize: "20px"}}
               onClick={() => props.display_form("login")}
               >
-              My Account
+              Login
             </div>
           </Fragment>
         </div>

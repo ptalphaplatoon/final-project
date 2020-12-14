@@ -1,24 +1,12 @@
 
 #StatePage-container{
   display: grid;
-  grid-template-rows: repeat(30,1fr);
-  grid-template-columns: repeat(33,1fr);
-  /* min-width: 100%;
-  min-height: 100%; */
+  grid-template-rows: repeat(1,1fr);
+  grid-template-columns: repeat(3,1fr);
+  min-width: 100%;
+  min-height: 100%;
 }
 /* ------------------------------------- */
-
-
-
-/* ------------ */
-/*      a-      */
-/* Group Change */
-/* ------------ */
-
-[class*="a-"]{
-  /* background-color: lightblue; */
-
-}
 
 /* ------------------------------------- */
 .a-api_feed_title{
@@ -29,6 +17,7 @@
   text-align: center;
 }
 /* ------------------------------------- */
+/* Card with comments from locals */
 .a-api_feed_container{
   grid-row-start: 2;
   grid-row-end: 29;
@@ -60,13 +49,6 @@
   grid-column-end: 32;
 }
 /* ------------------------------------- */
-
-  /* ------------------------------- */
-  
-  /* ------------ */
-  /*      b-      */
-  /* Group Change */
-  /* ------------ */
   
   [class*="b-"]{
     padding: 0%;
@@ -90,13 +72,61 @@
   
   /* ------------------------- */
   
-  .b-info-updater{
+  .b-info-card{
+    min-width: 225px;
+  }
+
+  .b-historic-values{
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 2; 
     grid-column-end: 32;
   }
-  
-  .b-info-card{
-    min-width: 225px;
-  }
+
+
+.float-container-statename {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.float-container-infoboxes {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.float-child-1-infoboxes {
+    width: 33%;
+    float: left;
+    padding: 20px;
+}  
+.float-child-2-infoboxes {
+  width: 33%;
+  float: center;
+  padding: 20px;
+}  
+.float-child-3-infoboxes {
+  width: 33%;
+  float: right;
+  padding: 20px;
+}  
+
+.float-container-graph {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.float-container-twitterandcomments {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.float-child-1-twitter {
+  width: 35%;
+  float: left;
+  padding: 20px;
+}  
+.float-child-2-comments {
+width: 65%;
+float: right;
+padding: 20px;
+}  

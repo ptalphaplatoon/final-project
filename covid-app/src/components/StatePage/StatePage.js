@@ -1,11 +1,11 @@
 import React, {Fragment, useState} from 'react';
-import './State-PageCss.css'
+import './StatePageCss.css'
 import Container from '../Comments/Container.js'
 import { Timeline } from 'react-twitter-widgets'
 import stateTwitters from '../../data/stateTwitters.json'
 import stateAbbr from '../../data/stateAbbr.json'
-
-import {fetchSingleStateMetaData, fetchCurrentSingleStateValues} from '../../API/InfectionsAPI'; 
+import {fetchSingleStateMetaData, fetchHistoricSingleStateValues, fetchCurrentSingleStateValues} from '../../API/InfectionsAPI'; 
+import StatePageChart from "../Charts/StatePageChart.js";
 import { postsGetAll } from '../api/CovidAppApi.js'
 
 import {
@@ -14,8 +14,10 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function State_Page(props){
-  
+function StatePage(props){
+  //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
   const stateName = sessionStorage.getItem('stateName')
   
 
@@ -25,7 +27,7 @@ function State_Page(props){
   const [singleStateMetaData, setSingleStateMetaData]=useState([])
   const [statePosts,setStatePosts] = useState([])
   const [stateChange,setStateChange] = useState(1)
-
+  
   // Get saved data from sessionStorage
   const abbrState = stateAbbr[stateName]
 
@@ -37,6 +39,18 @@ function State_Page(props){
     getSingleStateMetaData()
   },[abbrState])
 
+  const [historicSingleStateValues, setHistoricSingleStateValues]=useState([])
+  React.useEffect(() => {
+    async function getHistoricSingleStateValues() {
+        const data = await fetchHistoricSingleStateValues(abbrState)
+        await delay(100)
+        data.splice(60)
+        data.reverse()
+        setHistoricSingleStateValues(data)
+    }
+    getHistoricSingleStateValues()
+    },[abbrState])
+    
   const [currentSingleStateValues, setCurrentSingleStateValues]=useState([])
 
   React.useEffect(() => {
@@ -47,6 +61,7 @@ function State_Page(props){
     getCurrentSingleStateValues()
   },[abbrState])
 
+// Link to state health wevsite
   const statesCovid19HealthWebsite = <a href={singleStateMetaData.covid19Site} target="_blank" rel="noreferrer">Visit State Website</a>
   
   const formatNumber = (number) => {
@@ -54,10 +69,11 @@ function State_Page(props){
     return nf.format(number);
   };
 
+  // Positive cases, tests, and total tests info boxes
   const infoBox = [currentSingleStateValues].map(function (values, index) {
     return (
-      <div className="d-flex flex-row flex-wrap justify-content-center">
-        <div className="position-relative px-5 py-3">
+      <div className="float-container d-flex flex-row flex-wrap justify-content-center">
+        <div className="float-child-1-infoboxes position-relative px-5 py-3">
           <Card className="card-box bg-premium-dark border-0 text-light mb-5">
             <CardBody className="b-info-card">
               <div className="d-flex align-items-start">
@@ -83,7 +99,7 @@ function State_Page(props){
             </CardBody>
           </Card>
         </div>
-        <div className="position-relative px-5 py-3">
+        <div className="float-child-2-infoboxes position-relative px-5 py-3">
           <Card className="card-box bg-midnight-bloom text-light mb-5">
             <CardBody className="b-info-card">
               <div className="d-flex align-items-start">
@@ -109,7 +125,7 @@ function State_Page(props){
             </CardBody>
           </Card>
         </div>
-        <div className="position-relative px-5 py-3">
+        <div className="float-child-3-infoboxes position-relative px-5 py-3">
           <Card className="card-box bg-vicious-stance text-light mb-5">
             <CardBody className="b-info-card">
               <div className="d-flex align-items-start">
@@ -139,9 +155,6 @@ function State_Page(props){
     );
   });
 
-  //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-
   // Get StatePosts
   React.useEffect(() => {
     async function getPosts(){
@@ -151,8 +164,6 @@ function State_Page(props){
     getPosts()
     
   }, [stateChange])
-  console.log(stateChange)
-  console.log(statePosts)
 
   //read in all comments
   const displayComments =()=>{
@@ -175,6 +186,7 @@ function State_Page(props){
       return(postData)
   }
 
+  // Gives us a "add comment" button if the user is logged in
   const showAddComment = () =>{
     if (localStorage.token){
       return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange} destination='statePage'/>
@@ -182,8 +194,17 @@ function State_Page(props){
   }
 
   return (
-    <div id="StatePage-container">
-      <div className="a-api_feed_container">
+    <div>
+      <h1 className= "float-container-statename">{stateName}</h1>
+      {/* Positive cases, tests, and total tests info boxes */}
+      <div>
+        <Fragment>
+          <div>{infoBox}</div>
+        </Fragment>
+      </div>
+      <div className="float-container-twitterandcomments">
+      {/* Card with comments from locals */}
+      <div className="a-api_feed_container float-child-2-comments">
         <Fragment>
           <Card className="card-box mb-5">
             <div className="card-header pr-2">
@@ -206,36 +227,50 @@ function State_Page(props){
           </Card>
         </Fragment>
       </div>
-      <div>
-        <Fragment>
-          <div className="b-info-updater">{infoBox}</div>
-        </Fragment>
-      </div>
-      <div className="a-state_info_container">
-        <Fragment>
-          <Card className="card-box mb-5">
-            <div className="card-header d-block">
-              <span className="text-uppercase py-3 py-xl-4 text-black d-block text-center font-weight-bold font-size-lg">
-                {stateName} Health Department
-              </span>
-              <div className="text-center">{statesCovid19HealthWebsite}</div>
-            </div>
-            <CardBody>
-              <Timeline
-                dataSource={{
-                  sourceType: "profile",
-                  screenName: twitterHandle,
-                }}
-                options={{
-                  height: "800",
-                }}
-              />
-            </CardBody>
-          </Card>
-        </Fragment>
+
+        {/* State twitter container */}
+        <div className="a-state_info_container float-child-1-twitter">
+          <Fragment>
+            <Card className="card-box mb-5">
+              <div className="card-header d-block">
+                <span className="text-uppercase py-3 py-xl-4 text-black d-block text-center font-weight-bold font-size-lg">
+                  {stateName} Health Department
+                </span>
+                <div className="text-center">{statesCovid19HealthWebsite}</div>
+              </div>
+              <CardBody>
+                <Timeline
+                  dataSource={{
+                    sourceType: "profile",
+                    screenName: twitterHandle,
+                  }}
+                  options={{
+                    height: "800",
+                  }}
+                />
+              </CardBody>
+            </Card>
+          </Fragment>
+        </div>
+        </div>
+        {/* Historic values chart */}
+        <div className="b-historic-values float-container-graph">
+          <Fragment>
+              <Card className="card-box mb-5 p-3 text-center">
+                  <div className="my-3">
+                  <h6 className="font-weight-bold font-size-lg mb-1 text-black">
+                      Historic Values Last 60 Days
+                  </h6>
+                  <div className="state-page-line-chart">
+                      <StatePageChart historicSingleStateValues={historicSingleStateValues} />
+                  </div>
+                  </div>
+              </Card>
+              </Fragment>
       </div>
     </div>
   );
 }
 
-export default State_Page
+
+export default StatePage
