@@ -95,16 +95,13 @@ polygonSeries.events.on("datavalidated", function(ev) {
 // hospitalizedIncrease: csv.hospitalizedIncrease,
 // totalTestResultsIncrease: csv.totalTestResultsIncrease,
 let polygonTemplate = polygonSeries.mapPolygons.template;
-polygonTemplate.tooltipText = "{name}\n
-Cases: {value} +{positiveIncrease}\n
-Deaths: {deaths} +{deathIncrease}\n
-Tests: {totalTests} +{totalTestResultsIncrease}";
+polygonTemplate.tooltipText = "{name}\nCases: {value} +{positiveIncrease}\nDeaths: {deaths} +{deathIncrease}\nTests: {totalTests} +{totalTestResultsIncrease}";
 
-Cases/100K Last 7 Days: 70.5
-Cases Last 7 Days: 62,863
-Total Cases: 832,951
-Cases/100K: 6,538
-Deaths/100K 118
+// Cases/100K Last 7 Days: 70.5
+// Cases Last 7 Days: 62,863
+// Total Cases: 832,951
+// Cases/100K: 6,538
+// Deaths/100K 118
 
 
 

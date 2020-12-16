@@ -313,8 +313,6 @@ function App(props) {
     }
     getPosts()
   },[])
-  
-
 
   const renderStatePage = (props) => {
     return (
@@ -324,7 +322,7 @@ function App(props) {
 
   const renderHomePage =(props)=>{
     return(
-      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} historicUSValues={historicUSValues}/>
+      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} historicUSValues={historicUSValues} historicStateValues = {historicStateValues}/>
     )
   }
 

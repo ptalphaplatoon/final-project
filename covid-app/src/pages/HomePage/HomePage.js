@@ -148,8 +148,6 @@ function HomePage(props) {
     getStateCensusPopulations()
   },[])
 
-  // XXXXXXXXXXX
-
   const perCapita = () => { 
     let arrStateVals = []
     for(let index in stateCensusPopulations) {
@@ -166,9 +164,22 @@ function HomePage(props) {
     return arrStateVals
   }
 
-  const perCapitaVals = perCapita()
+  const stateLast7DaysData = () => {
+    let sum = 0
 
-  const currentStateInfNumsNEW = perCapitaVals.map(function(item) {
+    for(let index in props.currentStateValues){
+        let sum = 0
+        console.log(index)
+        console.log(props.currentStateValues.positive)
+    }
+    return(`state: ${0} pop: ${0}`)
+  }
+
+  const last7DaysValues = stateLast7DaysData()
+console.log(last7DaysValues)
+
+  const perCapitaValuesOfStates = perCapita()
+  const currentStateInfNumsNEW = perCapitaValuesOfStates.map(function(item) {
     
     for(let index in props.currentStateValues){
         let csv = props.currentStateValues[index]
@@ -194,7 +205,7 @@ function HomePage(props) {
           };
       }
     }
-    console.log('text', text)
+
     return text
   })
 
