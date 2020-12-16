@@ -35,7 +35,6 @@ class LoginSignUp extends React.Component {
     })
       .then((res) => {
         if (res["status"] >= 400) {
-          console.log("400 error");
           this.setState({
             logged_in: false,
             invalid_credentials_warning: true,

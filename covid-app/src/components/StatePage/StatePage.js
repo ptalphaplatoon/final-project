@@ -195,7 +195,7 @@ function StatePage(props){
 
   return (
     <div>
-      <h1 className= "float-container-statename">{stateName}</h1>
+      <h1 className="float-container-statename">{stateName}</h1>
       {/* Positive cases, tests, and total tests info boxes */}
       <div>
         <Fragment>
@@ -203,30 +203,25 @@ function StatePage(props){
         </Fragment>
       </div>
       <div className="float-container-twitterandcomments">
-      {/* Card with comments from locals */}
-      <div className="a-api_feed_container float-child-2-comments">
-        <Fragment>
-          <Card className="card-box mb-5">
-            <div className="card-header pr-2">
-              <div className="text-uppercase card-header--title">
-                Insight from Locals
+        {/* Card with comments from locals */}
+        <div className="a-api_feed_container float-child-2-comments">
+          <Fragment>
+            <Card className="card-box mb-5">
+              <div className="card-header pr-2">
+                <div className="text-uppercase card-header--title">
+                  Insight from Locals
+                </div>
+                <div className="card-header--actions"></div>
               </div>
-              <div className="card-header--actions"></div>
-            </div>
-            <CardBody>
-              <div className="table-responsive-md">
-                {displayComments()}
-                
+              <CardBody>
+                <div className="table-responsive-md">{displayComments()}</div>
+              </CardBody>
+              <div className="card-footer d-flex justify-content-between">
+                <div className="a-api_add_feed_button">{showAddComment()}</div>
               </div>
-            </CardBody>
-            <div className="card-footer d-flex justify-content-between">
-              <div className="a-api_add_feed_button">
-                {showAddComment()}
-              </div>
-            </div>
-          </Card>
-        </Fragment>
-      </div>
+            </Card>
+          </Fragment>
+        </div>
 
         {/* State twitter container */}
         <div className="a-state_info_container float-child-1-twitter">
@@ -252,25 +247,26 @@ function StatePage(props){
             </Card>
           </Fragment>
         </div>
-        </div>
-        {/* Historic values chart */}
-        <div className="b-historic-values float-container-graph">
+        <div className='float-container-graph'>
           <Fragment>
-              <Card className="card-box mb-5 p-3 text-center">
-                  <div className="my-3">
-                  <h6 className="font-weight-bold font-size-lg mb-1 text-black">
-                      Historic Values Last 60 Days
-                  </h6>
-                  <div className="state-page-line-chart">
-                      <StatePageChart historicSingleStateValues={historicSingleStateValues} />
-                  </div>
-                  </div>
-              </Card>
-              </Fragment>
+            <Card className='card-box mb-5 p-3 text-center historic-values-card'>
+              <div className="my-3">
+                <h6 className="font-weight-bold font-size-lg mb-1 text-black">
+                  Historic Values Last 60 Days
+                </h6>
+                <div className="state-page-line-chart">
+                  <StatePageChart
+                    historicSingleStateValues={historicSingleStateValues}
+                  />
+                </div>
+              </div>
+            </Card>
+          </Fragment>
+        </div>
       </div>
+      {/* Historic values chart */}
     </div>
   );
 }
 
-
-export default StatePage
+export default StatePage;

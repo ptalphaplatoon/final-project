@@ -111,8 +111,9 @@
 }  
 
 .float-container-graph {
-  padding-left: 20px;
-  padding-right: 20px;
+  width: 65%;
+  float: right;
+  padding: 20px;
 }
 
 .float-container-twitterandcomments {
