@@ -25,7 +25,10 @@ jobs:
     - name: Installing dependencies
       run: cd covid-app; npm install
     - name: Build
-      run: cd covid-app; npm run build --if-present
+      run: |
+        cd covid-app; npm run-script build --if-present
+      env:
+        REACT_APP_CENSUS_API_KEY: ${{ secrets.REACT_APP_CENSUS_API_KEY }}
     - name: Run tests
       run: cd covid-app; npm test
     - name: Run the tests and generate coverage report
