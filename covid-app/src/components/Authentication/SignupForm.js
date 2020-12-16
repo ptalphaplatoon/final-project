@@ -18,7 +18,6 @@ class SignupForm extends React.Component {
   };
 
   render() {
-    console.log("sign up form is called");
     return (
       <div className="auth-form">
         <form onSubmit={(e) => this.props.handle_signup(e, this.state)}>

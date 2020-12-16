@@ -18,7 +18,6 @@ function StatePage(props){
   //needed to allow useEffect enough time to read in all comments before the re-render is called when a comment is added
   const delay = ms => new Promise(res => setTimeout(res, ms));
 
-  // const STATENAME = props.sName
   const stateName = sessionStorage.getItem('stateName')
   
 
@@ -62,7 +61,7 @@ function StatePage(props){
     getCurrentSingleStateValues()
   },[abbrState])
 
-
+// Link to state health wevsite
   const statesCovid19HealthWebsite = <a href={singleStateMetaData.covid19Site} target="_blank" rel="noreferrer">Visit State Website</a>
   
   const formatNumber = (number) => {
@@ -70,10 +69,11 @@ function StatePage(props){
     return nf.format(number);
   };
 
+  // Positive cases, tests, and total tests info boxes
   const infoBox = [currentSingleStateValues].map(function (values, index) {
     return (
-      <div className="d-flex flex-row flex-wrap justify-content-center">
-        <div className="position-relative px-5 py-3">
+      <div className="float-container d-flex flex-row flex-wrap justify-content-center">
+        <div className="float-child-1-infoboxes position-relative px-5 py-3">
           <Card className="card-box bg-premium-dark border-0 text-light mb-5">
             <CardBody className="b-info-card">
               <div className="d-flex align-items-start">
@@ -99,7 +99,7 @@ function StatePage(props){
             </CardBody>
           </Card>
         </div>
-        <div className="position-relative px-5 py-3">
+        <div className="float-child-2-infoboxes position-relative px-5 py-3">
           <Card className="card-box bg-midnight-bloom text-light mb-5">
             <CardBody className="b-info-card">
               <div className="d-flex align-items-start">
@@ -125,7 +125,7 @@ function StatePage(props){
             </CardBody>
           </Card>
         </div>
-        <div className="position-relative px-5 py-3">
+        <div className="float-child-3-infoboxes position-relative px-5 py-3">
           <Card className="card-box bg-vicious-stance text-light mb-5">
             <CardBody className="b-info-card">
               <div className="d-flex align-items-start">
@@ -185,82 +185,87 @@ function StatePage(props){
       return(postData)
   }
 
+  // Gives us a "add comment" button if the user is logged in
   const showAddComment = () =>{
     if (localStorage.token){
-      return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange}/>
+      return <Container triggerText={triggerText} setStateChange={setStateChange} stateChange={stateChange} destination='statePage'/>
     }
   }
 
   return (
-    <div id="StatePage-container">
-      <div className="a-api_feed_container">
-        <Fragment>
-          <Card className="card-box mb-5">
-            <div className="card-header pr-2">
-              <div className="text-uppercase card-header--title">
-                Insight from Locals
-              </div>
-              <div className="card-header--actions"></div>
-            </div>
-            <CardBody>
-              <div className="table-responsive-md">
-                {displayComments()}
-                
-              </div>
-            </CardBody>
-            <div className="card-footer d-flex justify-content-between">
-              <div className="a-api_add_feed_button">
-                {showAddComment()}
-              </div>
-            </div>
-          </Card>
-        </Fragment>
-      </div>
+    <div>
+      <h1 className="float-container-statename">{stateName}</h1>
+      {/* Positive cases, tests, and total tests info boxes */}
       <div>
         <Fragment>
-          <div className="b-info-updater">{infoBox}</div>
+          <div>{infoBox}</div>
         </Fragment>
       </div>
-      <div className="a-state_info_container">
-        <Fragment>
-          <Card className="card-box mb-5">
-            <div className="card-header d-block">
-              <span className="text-uppercase py-3 py-xl-4 text-black d-block text-center font-weight-bold font-size-lg">
-                {stateName} Health Department
-              </span>
-              <div className="text-center">{statesCovid19HealthWebsite}</div>
-            </div>
-            <CardBody>
-              <Timeline
-                dataSource={{
-                  sourceType: "profile",
-                  screenName: twitterHandle,
-                }}
-                options={{
-                  height: "800",
-                }}
-              />
-            </CardBody>
-          </Card>
-        </Fragment>
-      </div>
-      <div>
-        <Fragment>
-            <Card className="card-box mb-5 p-3 text-center">
-                <div className="my-3">
+      <div className="float-container-twitterandcomments">
+        {/* Card with comments from locals */}
+        <div className="a-api_feed_container float-child-2-comments">
+          <Fragment>
+            <Card className="card-box mb-5">
+              <div className="card-header pr-2">
+                <div className="text-uppercase card-header--title">
+                  Insight from Locals
+                </div>
+                <div className="card-header--actions"></div>
+              </div>
+              <CardBody>
+                <div className="table-responsive-md">{displayComments()}</div>
+              </CardBody>
+              <div className="card-footer d-flex justify-content-between">
+                <div className="a-api_add_feed_button">{showAddComment()}</div>
+              </div>
+            </Card>
+          </Fragment>
+        </div>
+
+        {/* State twitter container */}
+        <div className="a-state_info_container float-child-1-twitter">
+          <Fragment>
+            <Card className="card-box mb-5">
+              <div className="card-header d-block">
+                <span className="text-uppercase py-3 py-xl-4 text-black d-block text-center font-weight-bold font-size-lg">
+                  {stateName} Health Department
+                </span>
+                <div className="text-center">{statesCovid19HealthWebsite}</div>
+              </div>
+              <CardBody>
+                <Timeline
+                  dataSource={{
+                    sourceType: "profile",
+                    screenName: twitterHandle,
+                  }}
+                  options={{
+                    height: "800",
+                  }}
+                />
+              </CardBody>
+            </Card>
+          </Fragment>
+        </div>
+        <div className='float-container-graph'>
+          <Fragment>
+            <Card className='card-box mb-5 p-3 text-center historic-values-card'>
+              <div className="my-3">
                 <h6 className="font-weight-bold font-size-lg mb-1 text-black">
-                    Historic Values Last 60 Days
+                  Historic Values Last 60 Days
                 </h6>
                 <div className="state-page-line-chart">
-                    <StatePageChart historicSingleStateValues={historicSingleStateValues} />
+                  <StatePageChart
+                    historicSingleStateValues={historicSingleStateValues}
+                  />
                 </div>
-                </div>
+              </div>
             </Card>
-            </Fragment>
+          </Fragment>
+        </div>
       </div>
+      {/* Historic values chart */}
     </div>
   );
 }
 
-
-export default StatePage
+export default StatePage;

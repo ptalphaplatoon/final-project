@@ -290,7 +290,7 @@ function HomePage(props) {
           </Card>
         </Fragment>
         <Fragment>
-          <Card className="card-box mb-5 p-3 text-center">
+          <Card className="card-box mb-5 p-3 text-center historic-values-card">
             <div className="my-3">
               <h6 className="font-weight-bold font-size-lg mb-1 text-black">
                 Historic Values Last 60 Days

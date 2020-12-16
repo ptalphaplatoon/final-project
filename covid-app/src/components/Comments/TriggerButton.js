@@ -1,9 +1,14 @@
 import React from 'react';
-import { Button } from 'reactstrap'
+import Button from "react-bootstrap/Button";
+
 const TriggerButton = ({ triggerText, buttonRef, showModal }) => {
   return (
-    <Button size="sm" color="primary" ref={buttonRef} onClick={showModal}>
-      {triggerText}
+    <Button
+    onClick={showModal}
+    color="link"
+    size="sm"
+    className="btn-link-primary">
+    {triggerText}
     </Button>
   );
 };

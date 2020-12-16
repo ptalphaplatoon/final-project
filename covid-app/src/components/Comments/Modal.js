@@ -11,7 +11,9 @@ export const Modal = ({
   closeModal,
   onSubmit,
   setStateChange,
-  stateChange
+  stateChange,
+  post,
+  destination
 }) => {
   return ReactDOM.createPortal(
     <FocusTrap>
@@ -40,7 +42,7 @@ export const Modal = ({
             </svg>
           </button>
           <div className="modal-body">
-            <Comments close={closeModal} setStateChange={setStateChange} stateChange={stateChange}/>
+            <Comments close={closeModal} setStateChange={setStateChange} stateChange={stateChange} editPost={post} destination={destination}/>
           </div>
         </div>
       </aside>

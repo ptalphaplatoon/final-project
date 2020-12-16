@@ -1,0 +1,14 @@
+.userprofile-background{
+  background-color: whitesmoke;
+}
+.userprofile{
+  display: flex;
+  margin-left: 30%;
+  
+}
+
+.userprofile-nocomments{
+  display: flex;
+  justify-content: center;
+
+}
