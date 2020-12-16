@@ -168,7 +168,6 @@ function StatePage(props){
   //read in all comments
   const displayComments =()=>{
     let postData = []
-    console.log(statePosts)
     if (statePosts){
       for (let post in statePosts){
         if(statePosts[post].title === stateName){

@@ -293,7 +293,6 @@ function App(props) {
   React.useEffect(() => {
     async function getHistoricStateValues() {
         const data = await fetchHistoricStateValues()
-        data.splice(7)
         setHistoricStateValues(data)
     }
     getHistoricStateValues()

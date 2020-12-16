@@ -4,7 +4,7 @@ const BASE_URL = 'https://api.covidtracking.com'
 const endpoint_historic_us_values = '/v1/us/daily.json'  // multi line - Historic values for US by day
 const endpoint_current_us_values = '/v1/us/current.json' // single line - current US values most recent day
 const endpoint_state_meta_data = '/v1/states/info.json' // single line health/govt/testing center web links
-const endpoint_historic_values_all_states = '/v1/states/info.json' 
+const endpoint_historic_values_all_states = '/v1/states/daily.json' 
 const endpoint_current_values_all_states = '/v1/states/current.json' 
 
 const fetchHistoricUSValues = async() => {

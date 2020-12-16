@@ -143,7 +143,6 @@ function HomePage(props) {
     async function getStateCensusPopulations() {
         const data = await fetchStateCensusPopulations()
         setStateCensusPopulations(data)
-        console.log(data)
     }
     getStateCensusPopulations()
   },[])
@@ -160,56 +159,61 @@ function HomePage(props) {
             }
         }
     }
-    console.log(arrStateVals)
     return arrStateVals
   }
 
-  const stateLast7DaysData = () => {
-    let sum = 0
+//   const stateLast7DaysData = props.historicStateVakklues.map(function(item) {
+//         for(let index in props.historicStateValues){
+//             let csv = props.historicStateValues[index]
+//             var text = {
+//                 id: "US-" + csv.state,
+//                 value: csv.positive,
+//                 deaths: csv.death,
+//             };
+//     }
+//     console.log('text', text)
+//     return text
+//   })
 
-    for(let index in props.currentStateValues){
-        let sum = 0
-        console.log(index)
-        console.log(props.currentStateValues.positive)
-    }
-    return(`state: ${0} pop: ${0}`)
-  }
-
-  const last7DaysValues = stateLast7DaysData()
-console.log(last7DaysValues)
+// console.log(stateLast7DaysData)
 
   const perCapitaValuesOfStates = perCapita()
-  const currentStateInfNumsNEW = perCapitaValuesOfStates.map(function(item) {
+
+  const currentStateInfNums = perCapitaValuesOfStates.map(function(item) {
     
     for(let index in props.currentStateValues){
         let csv = props.currentStateValues[index]
         let currentState = csv.state
 
       if (currentState === item.stateAbbr) {
-        // let casesBy100k = parseFloat(csv.positive) / parseFloat(item.value)
-        let valueBy100K = parseFloat(csv.positive) / parseFloat(item.value)
-        let deathsBy100K = parseFloat(csv.death) / parseFloat(item.value)
-        let hospitalizedCurrentlyBy100K = parseFloat(csv.hospitalizedCurrently) / parseFloat(item.value)
-        let totalTestsBy100K = parseFloat(csv.totalTestResults) / parseFloat(item.value)
+        let totalCases = csv.positive
+        let totalDeaths = csv.death
+        let totalTests = csv.totalTestResults
+        let valueBy100K = (parseFloat(csv.positive) / parseFloat(item.value)).toFixed(1)
+        let deathsBy100K = (parseFloat(csv.death) / parseFloat(item.value)).toFixed(1)
+        let hospitalizedCurrentlyBy100K = (parseFloat(csv.hospitalizedCurrently) / parseFloat(item.value)).toFixed(1)
+        let totalTestsBy100K = (parseFloat(csv.totalTestResults) / parseFloat(item.value)).toFixed(1)
 
         var text = {
             id: "US-" + csv.state,
             value: valueBy100K,
             deaths: deathsBy100K,
             hospitalizedCurrently: hospitalizedCurrentlyBy100K,
-            totalTests: totalTestsBy100K,
+            totalTests100K: totalTestsBy100K,
             positiveIncrease: csv.positiveIncrease,
             deathIncrease: csv.deathIncrease,
             hospitalizedIncrease: csv.hospitalizedIncrease,
             totalTestResultsIncrease: csv.totalTestResultsIncrease,
+            totalCases: totalCases,
+            totalDeath: totalDeaths,
+            totalTestResults: totalTests
           };
       }
     }
-
     return text
   })
 
-console.log(currentStateInfNumsNEW)
+// console.log(currentStateInfNumsNEW)
 
   // XXXXXXXXXXXXXX
 
@@ -272,7 +276,7 @@ console.log(currentStateInfNumsNEW)
           <Card className="card-box mb-5 p-3 text-center">
             <div className="my-3">
               <h6 className="font-weight-bold font-size-lg mb-1 text-black">
-                Hot Spot Map
+                Hot Spot Map: Total Cases per 100K people
               </h6>
               <p className="text-black-50 mb-0">
                 Zoom and click on a state for more information.
@@ -280,7 +284,7 @@ console.log(currentStateInfNumsNEW)
               <Map
                 map={chart}
                 setSName={setStateName}
-                currentStateInfNumsNEW={currentStateInfNumsNEW}
+                currentStateInfNums={currentStateInfNums}
               />
             </div>
           </Card>

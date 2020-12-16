@@ -44,7 +44,7 @@ polygonSeries.heatRules.push({
 polygonSeries.useGeodata = true;
 
 // Set heatmap values for each state
-polygonSeries.data = props.currentStateInfNumsNEW
+polygonSeries.data = props.currentStateInfNums
 
 // Set up heat legend
 let heatLegend = chart.createChild(am4maps.HeatLegend);
@@ -84,26 +84,8 @@ polygonSeries.events.on("datavalidated", function(ev) {
   maxRange.label.text = "" + heatLegend.numberFormatter.format(max);
 });
 
-// Configure series tooltip
-//Tooltip Choices
-// value: valueBy100K,
-// deaths: deathsBy100K,
-// hospitalizedCurrently: hospitalizedCurrentlyBy100K,
-// totalTests: totalTestsBy100K,
-// positiveIncrease: csv.positiveIncrease,
-// deathIncrease: csv.deathIncrease,
-// hospitalizedIncrease: csv.hospitalizedIncrease,
-// totalTestResultsIncrease: csv.totalTestResultsIncrease,
 let polygonTemplate = polygonSeries.mapPolygons.template;
-polygonTemplate.tooltipText = "{name}\nCases: {value} +{positiveIncrease}\nDeaths: {deaths} +{deathIncrease}\nTests: {totalTests} +{totalTestResultsIncrease}";
-
-// Cases/100K Last 7 Days: 70.5
-// Cases Last 7 Days: 62,863
-// Total Cases: 832,951
-// Cases/100K: 6,538
-// Deaths/100K 118
-
-
+polygonTemplate.tooltipText = "{name}\nTotal Cases: {totalCases} +{positiveIncrease}\nTotal Deaths: {totalDeath} +{deathIncrease}\nTotal Tests: {totalTestResults} +{totalTestResultsIncrease}\nCases/100k: {value}\nDeaths/100k: {deaths} \nTests/100k: {totalTests100K}";
 
 polygonTemplate.nonScalingStroke = true;
 polygonTemplate.strokeWidth = 0.5;
