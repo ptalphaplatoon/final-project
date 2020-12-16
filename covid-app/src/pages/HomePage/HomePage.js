@@ -1,11 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "./HomePageCss.css";
 import { Timeline } from "react-twitter-widgets";
 import Map from "../../components/Map/Map.js";
 import HomePageChart from "../../components/Charts/HomePageChart.js";
-
+import stateAbbr from '../../data/stateAbbr.json'
 import { CardBody, Card } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {fetchStateCensusPopulations} from './../../API/CensusDataAPI';
 
 function HomePage(props) {
   // Name passed from the State clicked on
@@ -137,21 +138,100 @@ function HomePage(props) {
     );
   });
 
-  const currentStateInfNums = props.currentStateValues.map(function (values) {
-    var text = {
-      id: "US-" + values.state,
-      value: values.positive,
-      deaths: values.death,
-      hospitalizedCurrently: values.hospitalizedCurrently,
-      hospitalizedCumulative: values.hospitalizedCumulative,
-      totalTests: values.totalTestResults,
-      positiveIncrease: values.positiveIncrease,
-      deathIncrease: values.deathIncrease,
-      hospitalizedIncrease: values.hospitalizedIncrease,
-      totalTestResultsIncrease: values.totalTestResultsIncrease,
-    };
-    return text;
-  });
+  const [stateCensusPopulations, setStateCensusPopulations]=useState([])
+  useEffect(()=>{
+    async function getStateCensusPopulations() {
+        const data = await fetchStateCensusPopulations()
+        setStateCensusPopulations(data)
+    }
+    getStateCensusPopulations()
+  },[])
+
+  const perCapita = () => { 
+    let arrStateVals = []
+    for(let index in stateCensusPopulations) {
+        for(let stateValue in stateAbbr) {
+            if(stateCensusPopulations[index][0] === stateValue) {
+                arrStateVals.push({
+                    stateAbbr: stateAbbr[stateValue],
+                    value: stateCensusPopulations[index][1] / 100000
+                })
+            }
+        }
+    }
+    return arrStateVals
+  }
+
+//   const stateLast7DaysData = props.historicStateVakklues.map(function(item) {
+//         for(let index in props.historicStateValues){
+//             let csv = props.historicStateValues[index]
+//             var text = {
+//                 id: "US-" + csv.state,
+//                 value: csv.positive,
+//                 deaths: csv.death,
+//             };
+//     }
+//     console.log('text', text)
+//     return text
+//   })
+
+// console.log(stateLast7DaysData)
+
+  const perCapitaValuesOfStates = perCapita()
+
+  const currentStateInfNums = perCapitaValuesOfStates.map(function(item) {
+    
+    for(let index in props.currentStateValues){
+        let csv = props.currentStateValues[index]
+        let currentState = csv.state
+
+      if (currentState === item.stateAbbr) {
+        let totalCases = csv.positive
+        let totalDeaths = csv.death
+        let totalTests = csv.totalTestResults
+        let valueBy100K = (parseFloat(csv.positive) / parseFloat(item.value)).toFixed(1)
+        let deathsBy100K = (parseFloat(csv.death) / parseFloat(item.value)).toFixed(1)
+        let hospitalizedCurrentlyBy100K = (parseFloat(csv.hospitalizedCurrently) / parseFloat(item.value)).toFixed(1)
+        let totalTestsBy100K = (parseFloat(csv.totalTestResults) / parseFloat(item.value)).toFixed(1)
+
+        var text = {
+            id: "US-" + csv.state,
+            value: valueBy100K,
+            deaths: deathsBy100K,
+            hospitalizedCurrently: hospitalizedCurrentlyBy100K,
+            totalTests100K: totalTestsBy100K,
+            positiveIncrease: csv.positiveIncrease,
+            deathIncrease: csv.deathIncrease,
+            hospitalizedIncrease: csv.hospitalizedIncrease,
+            totalTestResultsIncrease: csv.totalTestResultsIncrease,
+            totalCases: totalCases,
+            totalDeath: totalDeaths,
+            totalTestResults: totalTests
+          };
+      }
+    }
+    return text
+  })
+
+// console.log(currentStateInfNumsNEW)
+
+  // XXXXXXXXXXXXXX
+
+//   const currentStateInfNums = props.currentStateValues.map(function (values) {
+//     var text = {
+//       id: "US-" + values.state,
+//       value: values.positive,
+//       deaths: values.death,
+//       hospitalizedCurrently: values.hospitalizedCurrently,
+//       hospitalizedCumulative: values.hospitalizedCumulative,
+//       totalTests: values.totalTestResults,
+//       positiveIncrease: values.positiveIncrease,
+//       deathIncrease: values.deathIncrease,
+//       hospitalizedIncrease: values.hospitalizedIncrease,
+//       totalTestResultsIncrease: values.totalTestResultsIncrease,
+//     };
+//     return text;
+//   });
 
   return (
     <div id="home-container">
@@ -196,7 +276,7 @@ function HomePage(props) {
           <Card className="card-box mb-5 p-3 text-center">
             <div className="my-3">
               <h6 className="font-weight-bold font-size-lg mb-1 text-black">
-                Hot Spot Map
+                Hot Spot Map: Total Cases per 100K people
               </h6>
               <p className="text-black-50 mb-0">
                 Zoom and click on a state for more information.
@@ -204,7 +284,7 @@ function HomePage(props) {
               <Map
                 map={chart}
                 setSName={setStateName}
-                currentstateInfNums={currentStateInfNums}
+                currentStateInfNums={currentStateInfNums}
               />
             </div>
           </Card>

@@ -10,7 +10,7 @@ import Comments from './components/Comments/Comments.js'
 import LoginSignUp from './components/Authentication/LoginSignUp'
 import UserProfile from './components/UserProfile/UserProfile.js'
 
-import {fetchCurrentUSValues, fetchCurrentStateValues, fetchHistoricUSValues} from './API/InfectionsAPI'; 
+import {fetchCurrentUSValues, fetchCurrentStateValues, fetchHistoricUSValues, fetchHistoricStateValues} from './API/InfectionsAPI'; 
 
 import { postsGetAll } from './components/api/CovidAppApi.js'
 
@@ -268,6 +268,7 @@ function App(props) {
   const [currentUSValues, setCurrentUSValues]=useState([])
   const [currentStateValues, setCurrentStateValues]=useState([])
   const [historicUSValues, setHistoricUSValues]=useState([])
+  const [historicStateValues, setHistoricStateValues]=useState([])
   const [allPost,setAllPost] = useState([])
 
 
@@ -290,6 +291,14 @@ function App(props) {
   },[])
 
   React.useEffect(() => {
+    async function getHistoricStateValues() {
+        const data = await fetchHistoricStateValues()
+        setHistoricStateValues(data)
+    }
+    getHistoricStateValues()
+},[])
+
+  React.useEffect(() => {
       async function getCurrentStateValues() {
         const data = await fetchCurrentStateValues()
         setCurrentStateValues(data)
@@ -303,8 +312,6 @@ function App(props) {
     }
     getPosts()
   },[])
-  
-
 
   const renderStatePage = (props) => {
     return (
@@ -314,7 +321,7 @@ function App(props) {
 
   const renderHomePage =(props)=>{
     return(
-      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} historicUSValues={historicUSValues}/>
+      <HomePage setSName={setStateName} currentUSValues={currentUSValues} currentStateValues={currentStateValues} historicUSValues={historicUSValues} historicStateValues = {historicStateValues}/>
     )
   }
 

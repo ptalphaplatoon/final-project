@@ -44,7 +44,7 @@ polygonSeries.heatRules.push({
 polygonSeries.useGeodata = true;
 
 // Set heatmap values for each state
-polygonSeries.data = props.currentstateInfNums
+polygonSeries.data = props.currentStateInfNums
 
 // Set up heat legend
 let heatLegend = chart.createChild(am4maps.HeatLegend);
@@ -84,19 +84,9 @@ polygonSeries.events.on("datavalidated", function(ev) {
   maxRange.label.text = "" + heatLegend.numberFormatter.format(max);
 });
 
-// Configure series tooltip
-
-//Tooltip Choices
-// "deaths"
-// "hospitalizedCurrently"
-// "hospitalizedCumulative"
-// "totalTests"
-// "positiveIncrease"
-// "deathIncrease"
-// "hospitalizedIncrease"
-// "totalTestResultsIncrease"
 let polygonTemplate = polygonSeries.mapPolygons.template;
-polygonTemplate.tooltipText = "{name}\n\nCases: {value} +{positiveIncrease}\nDeaths: {deaths} +{deathIncrease}\nHospitalized: {hospitalizedCurrently} +{hospitalizedIncrease}\nTests: {totalTests} +{totalTestResultsIncrease}";
+polygonTemplate.tooltipText = "{name}\nTotal Cases: {totalCases} +{positiveIncrease}\nTotal Deaths: {totalDeath} +{deathIncrease}\nTotal Tests: {totalTestResults} +{totalTestResultsIncrease}\nCases/100k: {value}\nDeaths/100k: {deaths} \nTests/100k: {totalTests100K}";
+
 polygonTemplate.nonScalingStroke = true;
 polygonTemplate.strokeWidth = 0.5;
 
