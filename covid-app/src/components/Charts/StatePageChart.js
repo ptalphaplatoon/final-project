@@ -9,7 +9,6 @@ function StatePageChart (props){
     //https://www.amcharts.com/docs/v4/tutorials/chart-was-not-disposed/
     am4core.options.autoDispose = true;
 
-    console.log(props.historicSingleStateValues)
     const historicSingleStateChartData = props.historicSingleStateValues.map(function (values) {
         var newDate = new Date(values.dateChecked)
         var obj = {"date": newDate,
