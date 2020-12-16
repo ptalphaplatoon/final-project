@@ -6,7 +6,8 @@ name:  React Master
 on:
   push:
     branches: [ master ]
-
+env:
+  REACT_APP_CENSUS_API_KEY: ${{ secrets.REACT_APP_CENSUS_API_KEY }}
 jobs:
   build:
 
@@ -27,8 +28,6 @@ jobs:
     - name: Build
       run: |
         cd covid-app; npm run-script build --if-present
-      env:
-        REACT_APP_CENSUS_API_KEY: ${{ secrets.REACT_APP_CENSUS_API_KEY }}
     - name: Run tests
       run: cd covid-app; npm test
     - name: Run the tests and generate coverage report
