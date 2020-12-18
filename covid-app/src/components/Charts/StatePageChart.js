@@ -99,7 +99,6 @@ function StatePageChart (props){
 
         createAxisAndSeries("Cases", "Cases", false, "circle");
         createAxisAndSeries("Deaths", "Deaths", true, "triangle");
-        createAxisAndSeries("Hospitalized", "Hospitalized", true, "rectangle");
 
         // Add legend
         chart.legend = new am4charts.Legend();
